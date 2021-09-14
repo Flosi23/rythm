@@ -5,6 +5,7 @@
         "removeComments": true,
         "preserveConstEnums": true,
         "sourceMap": true,
+        "target": "ES6",
         "outDir": "build",
     },
     "exclude": ["node_modules"],
