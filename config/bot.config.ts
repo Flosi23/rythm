@@ -1,5 +1,16 @@
-import {checkStringIsUndefined} from './convert';
+import {ClientOptions} from 'discord.js';
+import {checkStringIsNotUndefined} from './convert';
 
-export default {
-  TOKEN: checkStringIsUndefined(process.env.BOT_TOKEN),
+interface botConfig {
+  TOKEN: string,
+  CLIENT_CONFIG: ClientOptions,
+}
+
+const botConfig: botConfig = {
+  TOKEN: checkStringIsNotUndefined(process.env.BOT_TOKEN),
+  CLIENT_CONFIG: {
+    intents: 8,
+  },
 };
+
+export default botConfig;

@@ -13,5 +13,7 @@ app.listen(server.PORT);
 
 import {Bot} from './src/Bot';
 import botConfig from './config/bot.config';
+import {connectToDatabase} from './src/Database/services/database.service';
 
+connectToDatabase();
 new Bot(botConfig.TOKEN).listen();

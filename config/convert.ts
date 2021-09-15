@@ -5,7 +5,7 @@
  * @throws Throws an error when the string is undefined or the number is Nan
  */
 export function envVarToNumber(string: string | undefined) : number {
-  const value : string = checkStringIsUndefined(string);
+  const value : string = checkStringIsNotUndefined(string);
 
   const converted : number = parseInt(value);
 
@@ -23,7 +23,7 @@ export function envVarToNumber(string: string | undefined) : number {
  * @throws Throws an error when the string is undefined or not a boolean
  */
 export function envVarToBoolean(string: string | undefined) : boolean {
-  const value : string = checkStringIsUndefined(string);
+  const value : string = checkStringIsNotUndefined(string);
 
   if (value === 'true') {
     return true;
@@ -41,7 +41,7 @@ export function envVarToBoolean(string: string | undefined) : boolean {
  * @param {string | undefined} string - The string that should be checked
  * @return {string}
  */
-export function checkStringIsUndefined(string: string | undefined) : string {
+export function checkStringIsNotUndefined(string: string | undefined) : string {
   if (string === undefined) {
     throw new Error('String is undefined');
   }

@@ -1,5 +1,11 @@
 import {envVarToNumber} from './convert';
 
-export default {
+interface serverConfig {
+  PORT: number,
+}
+
+const serverConfig: serverConfig = {
   PORT: envVarToNumber(process.env.PORT),
 };
+
+export default serverConfig;
