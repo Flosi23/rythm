@@ -1,19 +1,23 @@
+import ConversionError from '../src/errors/conversion.error';
+import {stringToBoolean, stringToNumber} from '../src/helper/convert';
+
 /**
  * Converts a string from an env file to a number
  * @param {string | undefined} string - The variable to be converted
  * @return {number} - The converted string
  * @throws Throws an error when the string is undefined or the number is Nan
  */
-export function envVarToNumber(string: string | undefined) : number {
-  const value : string = checkStringIsNotUndefined(string);
+export function envVarToNumber(
+    string: string | undefined) : number {
+  string = checkStringIsNotUndefined(string);
 
-  const converted : number = parseInt(value);
+  const result = stringToNumber(string);
 
-  if (isNaN(converted)) {
-    throw new Error('String is NaN');
+  if (result instanceof ConversionError) {
+    throw result.error;
   }
 
-  return converted;
+  return result;
 }
 
 /**
@@ -22,18 +26,17 @@ export function envVarToNumber(string: string | undefined) : number {
  * @return {boolean} - The converted string
  * @throws Throws an error when the string is undefined or not a boolean
  */
-export function envVarToBoolean(string: string | undefined) : boolean {
-  const value : string = checkStringIsNotUndefined(string);
+export function envVarToBoolean(
+    string: string | undefined) : boolean {
+  string = checkStringIsNotUndefined(string);
 
-  if (value === 'true') {
-    return true;
+  const result = stringToBoolean(string);
+
+  if (result instanceof ConversionError) {
+    throw result.error;
   }
 
-  if (value === 'false') {
-    return false;
-  }
-
-  throw new Error('String is not a boolean value');
+  return result;
 }
 
 /**

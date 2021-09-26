@@ -9,7 +9,7 @@ export default class Queue {
    * @type {Array<Song>}
    * @private
    */
-  private queue: Song[];
+  public songs: Song[];
 
   /**
    * Determines whether the currently playing song should be looped or not
@@ -23,7 +23,7 @@ export default class Queue {
    * @type {boolean}
    * @private
    */
-  public loopeQueue: boolean;
+  public loopQueue: boolean;
 
   /**
    * The currently playing song
@@ -37,18 +37,34 @@ export default class Queue {
    * @param {Array<Song>} songs - An array of songs, can also be empty
    */
   constructor(songs: Song[]) {
-    this.queue = songs;
+    this.songs = songs;
     this.nowPlaying = null;
     this.loop = false;
-    this.loopeQueue = false;
+    this.loopQueue = false;
   };
 
   /**
    * Adds songs to the queue
    * @param {Song[]} songs - The songs that should be added
+   * @param {number} index - At which index the songs should be added
    */
-  public addToQueue(songs: Song[]) {
-    this.queue = this.queue.concat(songs);
+  public addToQueue(songs: Song[], index: number) {
+    if (index >= this.songs.length - 1) {
+      // this.songs = this.songs.concat(songs);
+      // return;
+      index = this.songs.length - 1 < 0 ? 0 : this.songs.length - 1;
+    }
+
+    this.songs.splice(index, 0, ...songs);
+    return;
+  }
+
+  /**
+   * Removes all elements from 0 to index from the songs array
+   * @param {number} index
+   */
+  public skipTo(index: number) {
+    this.songs = this.songs.slice(index);
   }
 
   /**
@@ -61,13 +77,26 @@ export default class Queue {
       return this.nowPlaying;
     }
 
-    const next = this.queue.shift();
+    const next = this.songs.shift();
     if (!next) return undefined;
 
-    if (this.loopeQueue) this.queue.push(next);
+    if (this.loopQueue) this.songs.push(next);
 
     this.nowPlaying = next;
 
     return next;
+  }
+
+  /**
+   * Calculates and returns the total playtime of the queue
+   * in milliseconds
+   * @return {number}
+   */
+  public getTotalPlayTime() : number {
+    let duration = 0;
+    this.songs.forEach((song) => {
+      duration += song.duration;
+    });
+    return duration;
   }
 }

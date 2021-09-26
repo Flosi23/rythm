@@ -1,5 +1,6 @@
+import botEmbeds from './bot.embeds';
 import botErrors from './bot.errors';
-import BotMessages from './bot.message';
+import botMessages from './bot.message';
 import serviceErrors from './service.errors';
 import userErrors from './user.errors';
 
@@ -7,7 +8,8 @@ interface locales {
   serviceErrors: serviceErrors,
   userErrors: userErrors,
   botErrors: botErrors,
-  botMessages: BotMessages,
+  botMessages: botMessages,
+  botEmbeds: botEmbeds,
 }
 
 export default locales;

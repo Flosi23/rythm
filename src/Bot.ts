@@ -128,6 +128,12 @@ export default class Bot {
       }
     }
 
+    if (param !== null) {
+      param = param.trim();
+    }
+
+    command = command.toLowerCase();
+
     return {command, param};
   }
   /**

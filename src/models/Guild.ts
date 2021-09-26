@@ -8,8 +8,15 @@ import {YoutubeAPIError} from '../errors/youtube.error';
 import locales from '../locales/locales';
 import MusicPlayer from './MusicPlayer';
 import YoutubeClient from '../services/youtube.service';
+import Song from './Song';
+import {isUrl, isYoutubePlaylistUrl} from '../helper/regex';
+import Embed from '../embeds/Embed';
+import QueueEmbed from '../embeds/QueueEmbed';
+import Paginator from '../embeds/Paginator';
+import {stringToNumber} from '../helper/convert';
+import ConversionError from '../errors/conversion.error';
 
-interface deleteSelf{
+interface deleteSelf {
   (): boolean
 }
 
@@ -23,7 +30,7 @@ export default class BotGuild {
    * @type {Guild}
    * @private
    */
-  private guild: Guild;
+  public guild: Guild;
 
   /**
    * Text channel to write messages in
@@ -76,8 +83,24 @@ export default class BotGuild {
    * Makes the text bold and sends it
    * @param {string} text - The text to be sent
    */
-  private sendMessage(text: string) : void {
+  public sendMessage(text: string) : void {
     this.textChannel.send(`**${text}**`);
+  }
+
+  /**
+   * Sends an embed
+   * @param {Embed} embed
+   */
+  public sendEmbed(embed: Embed) : void {
+    this.textChannel.send({embeds: [embed]});
+  }
+
+  /**
+   * Sends an embed with several pages
+   * @param {Paginator} paginator
+   */
+  public sendPaginator(paginator: Paginator) : void {
+    paginator.send(this.textChannel);
   }
 
   /**
@@ -106,19 +129,102 @@ export default class BotGuild {
         return this.sendMessage(locales.userErrors.notInVoiceChannel);
       }
 
-      this.play(param, msg.member.voice.channel);
-      console.log('returning');
+      this.play(param, msg.member.voice.channel, msg);
+      return;
+    }
+
+    if (command === 'fp' || command === 'forceplay') {
+      if (msg.member === null || msg.guild === null) {
+        return this.sendMessage(locales.botErrors.errorWhileExecutingCommand);
+      }
+
+      if (param === null) {
+        return this.sendMessage(
+            locales.userErrors.commandNeedsParameter(command));
+      }
+
+      if (msg.member.voice.channel === null) {
+        return this.sendMessage(locales.userErrors.notInVoiceChannel);
+      }
+
+      this.forcePlay(param, msg.member.voice.channel, msg);
+      return;
+    }
+
+    if (command === 'loop') {
+      if (this.player === null) return;
+
+      this.player.queue.loop = !this.player.queue.loop;
+
+      if (this.player.queue.loop) {
+        this.sendMessage(
+            `:arrows_counterclockwise: ${locales.botMessages.loopEnabled}`);
+      } else {
+        this.sendMessage(`:x: ${locales.botMessages.loopDisabled}`);
+      }
+
+      return;
+    }
+
+    if (command === 'loopq' || command === 'loopqueue') {
+      if (this.player === null) return;
+
+      this.player.queue.loopQueue = !this.player.queue.loopQueue;
+
+      if (this.player.queue.loopQueue) {
+        this.sendMessage(
+            // eslint-disable-next-line max-len
+            `:arrows_counterclockwise: ${locales.botMessages.loopQueueEnabled}`);
+      } else {
+        this.sendMessage(`:x: ${locales.botMessages.loopQueueDisabled}`);
+      }
+
       return;
     }
 
     if (command === 'quit' || command === 'leave') {
+      if (this.player === null) return;
+
+      this.player.quit();
+      this.deleteSelf();
+      this.sendMessage(locales.botMessages.botLeft);
+      return;
+    }
+
+    if (command === 'skip' || command === 'fs') {
+      if (this.player === null) return;
+
+      this.player.playNextSong();
+      this.sendMessage(locales.botMessages.songSkipped);
+      return;
+    }
+
+    if (command === 'skipto') {
+      if (this.player === null) return;
+
+      if (param === null) {
+        return this.sendMessage(
+            locales.userErrors.commandNeedsParameter(command));
+      }
+
+      const convert = stringToNumber(param);
+
+      if (convert instanceof ConversionError) {
+        this.sendMessage(convert.message);
+        return;
+      }
+
+      const message = this.player.skipTo(convert);
+      this.sendMessage(message);
+      return;
+    }
+
+    if (command === 'q' || command === 'queue') {
       if (this.player === null) {
         return;
       }
 
-      this.player.quit();
-      this.deleteSelf();
-      this.sendMessage('quit');
+      this.sendPaginator(new QueueEmbed(this.player.queue));
       return;
     }
 
@@ -129,24 +235,102 @@ export default class BotGuild {
    * Adds a new song to the queue
    * @param {string} param - Command parameter
    * @param {VoiceChannel | StageChannel} voiceChannel - Original message
+   * @param {Message} msg - The original message
+   * @return {Promise<void>}
+   */
+  private async forcePlay(
+      param: string,
+      voiceChannel: VoiceChannel | StageChannel,
+      msg: Message,
+  ) : Promise<void> {
+    const songs: Song[] = await this.getSongs(param, voiceChannel, msg);
+
+    if (this.player !== null) {
+      this.player.addToQueue(songs, 0);
+    }
+  };
+
+  /**
+   * Adds a new song to the queue
+   * @param {string} param - Command parameter
+   * @param {VoiceChannel | StageChannel} voiceChannel - Original message
+   * @param {Message} msg - The original message
    * @return {Promise<void>}
    */
   private async play(
       param: string,
       voiceChannel: VoiceChannel | StageChannel,
+      msg: Message,
   ) : Promise<void> {
+    const songs: Song[] = await this.getSongs(param, voiceChannel, msg);
+
+    if (this.player !== null) {
+      this.player.addToQueue(songs);
+    }
+  };
+
+
+  /**
+   * Returns a list of songs
+   * @param {string} param
+   * @param {Voicechannel | StageChannel} voiceChannel
+   * @param {Message} msg
+   */
+  private async getSongs(
+      param: string,
+      voiceChannel: VoiceChannel | StageChannel,
+      msg: Message,
+  ) : Promise<Song[]> {
     if (this.player === null) {
-      this.player = new MusicPlayer(voiceChannel, this.guild);
+      this.player = new MusicPlayer(
+          voiceChannel,
+          this.guild,
+          this);
     }
 
-    const song = await this.youtubeClient.getVideo(param);
+    // regex matches every URL
+    // eslint-disable-next-line max-len
 
-    if (song instanceof YoutubeAPIError) {
-      return this.sendMessage(song.message);
+    let songs : Song[] = [];
+
+    if (isUrl(param)) {
+      songs = await this.handleUrl(param, msg);
+    } else {
+      this.sendMessage(locales.botMessages.searchingYoutubeVideo(param));
+
+      const song = await this.youtubeClient.getVideo(param, msg.author);
+
+      if (song instanceof YoutubeAPIError) {
+        this.sendMessage(song.message);
+        return [];
+      }
+
+      this.sendEmbed(song.getEmbed(locales.botEmbeds.addedToQueue));
+
+      songs = [song];
     }
 
-    this.player.playSong(song);
+    return songs;
+  }
 
-    // this.player.addToQueue([song]);
+  /**
+   *
+   * @param {string} url
+   * @param {Message} msg - The original message
+   * @return {Song[]} - The songs that should be added to the queue
+   */
+  private async handleUrl(url: string, msg: Message) : Promise<Song[]> {
+    if (isYoutubePlaylistUrl(url)) {
+      const songs = await this.youtubeClient.getPlaylist(url, msg.author);
+
+      if (songs instanceof YoutubeAPIError) {
+        this.sendMessage(songs.message);
+        return [];
+      }
+
+      return songs;
+    }
+
+    return [];
   }
 }
