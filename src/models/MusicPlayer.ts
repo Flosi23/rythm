@@ -170,7 +170,7 @@ export default class MusicPlayer {
     const song: Song | undefined = this.queue.getNextSong();
 
     if (song === undefined) {
-      this.quit();
+      // this.quit();
       return;
     }
 
