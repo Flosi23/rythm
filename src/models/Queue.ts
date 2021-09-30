@@ -55,7 +55,7 @@ export default class Queue {
       index = this.songs.length - 1 < 0 ? 0 : this.songs.length - 1;
     }
 
-    this.songs.splice(index, 0, ...songs);
+    this.songs.splice(0, 0, ...songs);
     return;
   }
 
