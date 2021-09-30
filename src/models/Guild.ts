@@ -265,8 +265,7 @@ export default class BotGuild {
     const songs: Song[] = await this.getSongs(param, voiceChannel, msg);
 
     if (this.player !== null) {
-      this.sendMessage(`song added to queue at position ${this.player.addToQueue(songs)}`);
-      this.sendMessage(`with queue count ${songs.length}`)
+      this.sendMessage(`song added to queue at songLength | index ${this.player.addToQueue(songs)}`);
     }
   };
 
