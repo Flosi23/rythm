@@ -203,7 +203,7 @@ export default class MusicPlayer {
    * @public
    */
   public addToQueue(songs: Song[], index: number = this.queue.songs.length) {
-    this.queue.addToQueue(songs, this.queue.songs.length);
+    this.queue.addToQueue(songs, index);
 
     if (this.player.state.status === AudioPlayerStatus.Idle) {
       this.playNextSong();
