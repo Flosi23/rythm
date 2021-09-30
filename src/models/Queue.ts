@@ -54,10 +54,13 @@ export default class Queue {
     //   // return;
     //   index = (this.songs.length - 1) < 0 ? 0 : this.songs.length - 1;
     // }
-    // index = (this.songs.length - 1) < 0 ? 0 : this.songs.length - 1;
 
-    //this.songs.splice((this.songs.length <= 0) ? 0 : this.songs.length - 1, 0, ...songs);
-    this.songs.push(...songs)
+    if (index === undefined) {
+      this.songs.push(...songs);
+    } else {
+      this.songs.splice((index <= 0) ? 0 : index - 1, 0, ...songs);
+    }
+
     return;
   }
 
