@@ -56,7 +56,7 @@ export default class Queue {
     // }
 
     if (index === undefined) {
-      this.songs.push(...songs);
+      //this.songs.push(...songs);
     } else {
       this.songs.splice((index <= 0) ? 0 : index, 0, ...songs);
     }
