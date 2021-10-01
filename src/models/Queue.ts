@@ -55,11 +55,7 @@ export default class Queue {
     //   index = (this.songs.length - 1) < 0 ? 0 : this.songs.length - 1;
     // }
 
-    if (index === undefined) {
-      //this.songs.push(...songs);
-    } else {
       this.songs.splice((index <= 0) ? 0 : index, 0, ...songs);
-    }
 
     return;
   }
