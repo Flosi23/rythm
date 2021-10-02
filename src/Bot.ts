@@ -97,7 +97,9 @@ export default class Bot {
    * @return {BotCommand} - The command and param
    */
   private getCommand(msg: Message) : BotCommand {
-    const split : string[] = msg.content.split(' ');
+
+    const filtered : string = msg.content.replace(/./i,'');
+    const split : string[] = filtered.split(' ');
 
     let command : string = ' ';
     let param: string | null = null;

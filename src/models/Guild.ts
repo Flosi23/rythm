@@ -228,6 +228,14 @@ export default class BotGuild {
       return;
     }
 
+    if (command === 'now' || command === 'nowplaying') {
+      if (this.player === null) {
+        return;
+      }
+
+      
+    }
+
     this.sendMessage(locales.userErrors.isNotACommand(command));
   }
 
