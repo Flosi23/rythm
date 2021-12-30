@@ -49,9 +49,11 @@ export default class Queue {
    * @param {number} index - At which index the songs should be added
    */
   public addToQueue(songs: Song[], index: number) {
-    if (index >= this.songs.length - 1) {
-      // this.songs = this.songs.concat(songs);
-      // return;
+    if (index < 0) {
+      index = 0;
+    }
+
+    if (index >= this.songs.length) {
       index = this.songs.length - 1 < 0 ? 0 : this.songs.length - 1;
     }
 
