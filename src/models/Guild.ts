@@ -56,7 +56,7 @@ export default class BotGuild {
 
   /**
    * Callback-Function to remove this guild from the guilds collection
-   * @type {any}
+   * @type {deleteSelf}
    * @private
    */
   private deleteSelf: deleteSelf
@@ -66,13 +66,13 @@ export default class BotGuild {
    * @constructor
    * @param {Guild} guild - The Id of the guild
    * @param {TextChannel} textChannel - The text channel of the msg
-   * @param {any} deleteSelf -
+   * @param {deleteSelf} deleteSelf -
    * Callback to remove this guild from the guilds collection
    */
   constructor(
       guild: Guild,
       textChannel: TextChannel,
-      deleteSelf: any) {
+      deleteSelf: deleteSelf) {
     this.guild = guild;
     this.textChannel = textChannel;
     this.youtubeClient = new YoutubeClient();
