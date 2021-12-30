@@ -163,7 +163,6 @@ export default class MusicPlayer {
 
   /**
    * Plays the next song from the queue
-   * If the queue is empty the bot leaves
    * @private
    */
   public async playNextSong() {
@@ -185,14 +184,11 @@ export default class MusicPlayer {
    * @public
    */
   private async playSong(song: Song) {
-    console.log('playing song ', song.url);
-
     try {
       const audioResource: AudioResource = await song.createAudioResource();
 
       this.player.play(audioResource);
     } catch (error) {
-      console.log('An error occured', error);
       this.playNextSong();
     }
   }
@@ -207,7 +203,8 @@ export default class MusicPlayer {
   public addToQueue(songs: Song[], index: number = this.queue.songs.length) {
     this.queue.addToQueue(songs, index);
 
-    if (this.player.state.status === AudioPlayerStatus.Idle) {
+    if (this.player.state.status === AudioPlayerStatus.Idle &&
+        this.queue.nowPlaying == null) {
       this.playNextSong();
     }
   }

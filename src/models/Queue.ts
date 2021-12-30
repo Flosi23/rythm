@@ -73,6 +73,8 @@ export default class Queue {
     const next = this.songs.shift();
 
     if (!next) {
+      this.nowPlaying = null;
+
       return undefined;
     }
 
