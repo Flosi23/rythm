@@ -1,5 +1,5 @@
 import {YoutubeVideoBase} from '../../types';
-import YoutubeVideoSongEmbed from '../embeds/YoutubeVideoSongEmbed';
+import YoutubeSongEmbed from '../embeds/YoutubeSongEmbed';
 import Song from './Song';
 import {raw as youtubedl} from 'youtube-dl-exec';
 import {AudioResource, createAudioResource, demuxProbe} from '@discordjs/voice';
@@ -35,8 +35,8 @@ export default class YoutubeSong extends Song {
    * @param {string} title - The title of the embed
    * @return {SongEmbed}
    */
-  public getEmbed(title: string) : YoutubeVideoSongEmbed {
-    return new YoutubeVideoSongEmbed(title, this);
+  public getEmbed(title: string) : YoutubeSongEmbed {
+    return new YoutubeSongEmbed(title, this);
   }
 
   /**

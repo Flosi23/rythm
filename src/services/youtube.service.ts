@@ -6,7 +6,7 @@ import {AxiosError} from 'axios';
 // import ytdl from 'ytdl-core-discord';
 import {extractPlaylistId} from '../helper/regex';
 import {YoutubePlaylistItem, YoutubeSearch, YoutubeVideo} from '../../types';
-import YoutubeVideoSong from '../models/YoutubeVideoSong';
+import YoutubeSong from '../models/YoutubeSong';
 import {User} from 'discord.js';
 import {durationToMillis} from '../helper/util';
 // import {Readable} from 'stream';
@@ -97,7 +97,7 @@ export default class YoutubeClient extends HttpClient {
 
       const songUrl = this.getVideoUrl(video.id.videoId);
 
-      return new YoutubeVideoSong(songUrl, duration, requestor, video);
+      return new YoutubeSong(songUrl, duration, requestor, video);
     } catch (error: any) {
       if (error instanceof YoutubeAPIError) {
         return error;
@@ -143,7 +143,7 @@ export default class YoutubeClient extends HttpClient {
         const duration = durationToMillis(
             videos[i].contentDetails.duration);
 
-        songs.push(new YoutubeVideoSong(songUrl, duration, requestor, item));
+        songs.push(new YoutubeSong(songUrl, duration, requestor, item));
       });
 
       return songs;

@@ -1,11 +1,11 @@
 import colors from '../../config/colors.config';
 import locales from '../locales/locales';
 import SongEmbed from './SongEmbed';
-import YoutubeSong from '../models/YoutubeVideoSong';
+import YoutubeSong from '../models/YoutubeSong';
 /**
  * @class
  */
-export default class YoutubeVideoSongEmbed extends SongEmbed {
+export default class YoutubeSongEmbed extends SongEmbed {
   /**
    * @constructor
    * @param {string} title - The title of the embed;
