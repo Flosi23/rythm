@@ -4,6 +4,7 @@
   "description": "A replacement for the rythm music bot",
   "main": "index.js",
   "scripts": {
+    "docs": "jsdoc -c jsdoc.json",
     "serve": "npm run build && npm run start",
     "start": "node ./build/index.js",
     "build": "npx tsc",
