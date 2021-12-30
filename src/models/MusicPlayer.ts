@@ -185,6 +185,8 @@ export default class MusicPlayer {
    * @public
    */
   private async playSong(song: Song) {
+    console.log('playing song ', song.url);
+
     try {
       const audioResource: AudioResource = await song.createAudioResource();
 

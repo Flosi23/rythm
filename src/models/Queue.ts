@@ -49,16 +49,7 @@ export default class Queue {
    * @param {number} index - At which index the songs should be added
    */
   public addToQueue(songs: Song[], index: number) {
-    if (index < 0) {
-      index = 0;
-    }
-
-    if (index >= this.songs.length) {
-      index = this.songs.length - 1 < 0 ? 0 : this.songs.length - 1;
-    }
-
-    this.songs.splice(index, 0, ...songs);
-    return;
+    this.songs.splice((index <= 0) ? 0 : index, 0, ...songs);
   }
 
   /**
@@ -80,9 +71,14 @@ export default class Queue {
     }
 
     const next = this.songs.shift();
-    if (!next) return undefined;
 
-    if (this.loopQueue) this.songs.push(next);
+    if (!next) {
+      return undefined;
+    }
+
+    if (this.loopQueue) {
+      this.songs.push(next);
+    }
 
     this.nowPlaying = next;
 
