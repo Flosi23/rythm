@@ -17,7 +17,7 @@ export default abstract class Song {
 
   /**
    * The duration of the song
-   * @type {string}
+   * @type {number}
    * @public
    */
   public duration: number;
