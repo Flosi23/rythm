@@ -109,26 +109,32 @@ export default class YoutubeClient extends HttpClient {
 
   /**
    * Finds and returns the songs in a playlist
+   * If the playlist has more than 50 entries it will call itself again with
+   * the nextPageToken from the previous request.
    * @param {string} url - The playlist url;
    * @param {User} requestor - The user who requested the song
+   * @param {string} pageToken - The pageToken that specifies a specific page
+   * in the youtube API result
    * @return {Promise<Song[] | YoutubeAPIError>}
    */
   public async getPlaylist(
-      url: string, requestor: User) : Promise<Song[] | YoutubeAPIError> {
+      url: string, requestor: User, pageToken: string | null = null)
+      : Promise<Song[] | YoutubeAPIError> {
     const playlistId : string = extractPlaylistId(url);
 
     const requestUrl = this.constructUrl(
-        'playlistItems', `playlistId=${playlistId}&maxResults=50&part=snippet,\
-        contentDetails`,
+        'playlistItems',
+        `playlistId=${playlistId}&maxResults=50&part=snippet,\
+        contentDetails${pageToken == null ? '' : `&pageToken=${pageToken}`}`,
     );
 
     try {
-      const result = await this.instance.get(requestUrl);
+      const data = await (await this.instance.get(requestUrl)).data;
 
-      const songs : Song[] = [];
+      let songs : Song[] = [];
 
       const videos = await this.getVideoInformation(
-          result.data.items.map((ele: YoutubePlaylistItem) => {
+          data.items.map((ele: YoutubePlaylistItem) => {
             return ele.contentDetails.videoId;
           }),
       );
@@ -137,7 +143,7 @@ export default class YoutubeClient extends HttpClient {
         return videos;
       }
 
-      result.data.items.forEach((item: YoutubePlaylistItem, i: number) => {
+      data.items.forEach((item: YoutubePlaylistItem, i: number) => {
         const songUrl = this.getVideoUrl(item.contentDetails.videoId);
 
         const duration = durationToMillis(
@@ -145,6 +151,17 @@ export default class YoutubeClient extends HttpClient {
 
         songs.push(new YoutubeSong(songUrl, duration, requestor, item));
       });
+
+      if (data.nextPageToken != null) {
+        // eslint-disable-next-line max-len
+        const nextPageSongs = await this.getPlaylist(url, requestor, data.nextPageToken);
+
+        if (nextPageSongs instanceof YoutubeAPIError) {
+          return songs;
+        }
+
+        songs = songs.concat(nextPageSongs);
+      }
 
       return songs;
     } catch (error: any) {
