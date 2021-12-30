@@ -25,8 +25,8 @@ A music bot, similar to rythm to queue up and play youtube videos and playlists
 - These are the 4 things you need to configure: 
 1. `PORT` This is the port the application should run on. A default value is e.g `3000`
 2. `NODE_ENV` Default value should be `production`. If you are currently developing set it to `development`
-3. `BOT_TOKEN` Your discord Bot Token. Here is a good tutorial on how to get one: [https://www.writebots.com/discord-bot-token/]()
-4. `YOUTUBE_API_KEY` This is the most complicated part. The youtube api key grants the bot access to the youtube api. Here is another tutorial on how to get one [https://blog.hubspot.com/website/how-to-get-youtube-api-key]()
+3. `BOT_TOKEN` Your discord Bot Token. Here is a good tutorial on how to get one: [https://www.writebots.com/discord-bot-token/](https://www.writebots.com/discord-bot-token/)
+4. `YOUTUBE_API_KEY` This is the most complicated part. The youtube api key grants the bot access to the youtube api. Here is another tutorial on how to get one [https://blog.hubspot.com/website/how-to-get-youtube-api-key](https://blog.hubspot.com/website/how-to-get-youtube-api-key)
 
 ### Running the Application
 - In order to build and run the application, use: `npm run serve`
