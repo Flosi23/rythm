@@ -8,7 +8,6 @@ import {millisToMMSS, toChunks} from '../../helper/util';
 
 /**
  * A paginated embed used to display the queue
- * 
  * @category Embeds
  * @subcategory Paginated
  * @extends Paginator
