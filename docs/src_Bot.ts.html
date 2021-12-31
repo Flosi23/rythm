@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Bot.html">Bot</a></li><li><a href="module.exports_module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#checkStringIsNotUndefined">checkStringIsNotUndefined</a></li><li><a href="global.html#envVarToBoolean">envVarToBoolean</a></li><li><a href="global.html#envVarToNumber">envVarToNumber</a></li><li><a href="global.html#getCommand">getCommand</a></li><li><a href="global.html#handleGuildCommand">handleGuildCommand</a></li><li><a href="global.html#handleUserCommand">handleUserCommand</a></li><li><a href="global.html#listen">listen</a></li><li><a href="global.html#message">message</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-Convert.html">Convert</a></li><li><a href="module-convert_.html">convert</a></li><li><a href="module-Regex.html">Regex</a></li><li><a href="module-Util.html">Util</a></li></ul><h3>Classes</h3><ul><li><a href="Bot.html">Bot</a></li><li><a href="BotGuild.html">BotGuild</a></li><li><a href="Guild.html">Guild</a></li></ul><h3>Interfaces</h3><ul><li><a href="BotCommand.html">BotCommand</a></li><li><a href="YoutubePlaylistItem.html">YoutubePlaylistItem</a></li><li><a href="YoutubeSearch.html">YoutubeSearch</a></li><li><a href="YoutubeThumbnail.html">YoutubeThumbnail</a></li><li><a href="YoutubeVideo.html">YoutubeVideo</a></li><li><a href="YoutubeVideoBase.html">YoutubeVideoBase</a></li></ul></div><div class="category"><h2>Embeds</h2><h3>Classes</h3><ul><li><a href="Embed.html">Embed</a></li><li><a href="SongEmbed.html">SongEmbed</a></li><li><a href="YoutubeSongEmbed.html">YoutubeSongEmbed</a></li></ul><h3>Classes / Paginated</h3><ul><li><a href="Paginator.html">Paginator</a></li><li><a href="QueueEmbed.html">QueueEmbed</a></li></ul></div><div class="category"><h2>Errors</h2><h3>Classes</h3><ul><li><a href="ConversionError.html">ConversionError</a></li><li><a href="CustomError.html">CustomError</a></li><li><a href="YoutubeAPIError.html">YoutubeAPIError</a></li></ul></div><div class="category"><h2>MusicPlayer</h2><h3>Classes</h3><ul><li><a href="MusicPlayer.html">MusicPlayer</a></li><li><a href="Queue.html">Queue</a></li></ul></div><div class="category"><h2>Services</h2><h3>Classes</h3><ul><li><a href="HttpClient.html">HttpClient</a></li><li><a href="YoutubeClient.html">YoutubeClient</a></li></ul></div><div class="category"><h2>Song</h2><h3>Classes</h3><ul><li><a href="Song.html">Song</a></li><li><a href="YoutubeSong.html">YoutubeSong</a></li></ul></div><div class="category"><h2>locales</h2><h3>Interfaces / botEmbeds</h3><ul><li><a href="botEmbeds.html">botEmbeds</a></li><li><a href="songsInQueue.html">songsInQueue</a></li><li><a href="totalLength.html">totalLength</a></li></ul><h3>Interfaces / botErrors</h3><ul><li><a href="botErrors.html">botErrors</a></li></ul><h3>Interfaces / botMessage</h3><ul><li><a href="botMessages.html">botMessages</a></li><li><a href="searchingYoutubeVideo.html">searchingYoutubeVideo</a></li><li><a href="skippedTo.html">skippedTo</a></li></ul><h3>Interfaces / userErrors</h3><ul><li><a href="commandNeedsParameter.html">commandNeedsParameter</a></li><li><a href="isNotACommand.html">isNotACommand</a></li><li><a href="userErrors.html">userErrors</a></li></ul><h3>Interfaces</h3><ul><li><a href="global.html#locales">locales</a></li></ul><h3>Interfaces / serviceErrors</h3><ul><li><a href="serviceErrors.html">serviceErrors</a></li></ul><h3><a href="global.html">Global</a></h3></div>
                 
             </nav>
         </div>
@@ -86,16 +86,18 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import Discord, {Guild, Collection, TextChannel} from 'discord.js';
-import {BotCommand, GuildId} from '../types';
+import {GuildId} from '../types';
+import BotCommand from './interfaces/BotCommand';
 import {Client, Message} from 'discord.js';
 import botConfig from '../config/bot.config';
-import BotGuild from './models/Guild';
+import BotGuild from './BotGuild';
 import YoutubeClient from './services/youtube.service';
 /**
  * The Bot class handles incoming messages and logging in
+ * Bot
  * @class Bot
  */
-export default class Bot {
+class Bot {
   /**
    * The token of the bot
    * @type {string}
@@ -139,6 +141,7 @@ export default class Bot {
 
   /**
    * Bot starts up and listeners are assigned
+   * @public
    */
   public listen(): void {
     this.discordClient.on('messageCreate', (msg: Message) => {
@@ -160,6 +163,7 @@ export default class Bot {
    * Handles an incoming message.
    * Returns when the msg was send by the bot or it doesnt begin with the prefix
    * . Splits the message in command and parameter
+   * @private
    * @param {Message} msg - The incoming message
    */
   private message(msg: Message) : void {
@@ -180,6 +184,7 @@ export default class Bot {
 
   /**
    * Filters command and its parameter from a msg
+   * @private
    * @param {Message} msg - The msg sent
    * @return {BotCommand} - The command and param
    */
@@ -225,12 +230,13 @@ export default class Bot {
   }
   /**
    * Handles a command sent on a guild
+   * @private
    * @param {string} command - The command
    * @param {string | null} param - The parameter passed with the command
    * @param {Message} msg - The discord msg object (The original message)
    * @param {Guild} guild - The discord guild the msg was sent from
    */
-  protected handleGuildCommand(
+  private handleGuildCommand(
       command: string,
       param: string | null,
       msg: Message,
@@ -256,17 +262,20 @@ export default class Bot {
 
   /**
    * Handles a command sent via dm
+   * @private
    * @param {string} command - The command
    * @param {string | null} param - The parameter passed with the command
    * @param {Message} msg - The discord msg object (The original message)
    */
-  protected handleUserCommand(
+  private handleUserCommand(
       command: string,
       param: string | null,
       msg: Message) : void {
     return;
   }
 }
+
+export default Bot;
 </code></pre>
         </article>
     </section>

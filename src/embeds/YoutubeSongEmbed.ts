@@ -1,11 +1,13 @@
 import colors from '../../config/colors.config';
 import locales from '../locales/locales';
 import SongEmbed from './SongEmbed';
-import YoutubeSong from '../models/YoutubeSong';
+import YoutubeSong from '../songs/YoutubeSong';
 /**
- * @class
+ * 
+ * @category Embeds
+ * @extends SongEmbed
  */
-export default class YoutubeSongEmbed extends SongEmbed {
+class YoutubeSongEmbed extends SongEmbed {
   /**
    * @constructor
    * @param {string} title - The title of the embed;
@@ -27,3 +29,5 @@ export default class YoutubeSongEmbed extends SongEmbed {
     this.setThumbnail(song.metadata.snippet.thumbnails.default.url);
   }
 }
+
+export default YoutubeSongEmbed;

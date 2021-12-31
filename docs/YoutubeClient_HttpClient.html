@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> HttpClient</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Bot.html">Bot</a></li><li><a href="Bot_Bot.html">Bot</a></li><li><a href="BotGuild_BotGuild.html">BotGuild</a></li><li><a href="BotMessage.html">BotMessage</a></li><li><a href="BotMessage_BotMessage.html">BotMessage</a></li><li><a href="ConversionError.html">ConversionError</a></li><li><a href="ConversionError_ConversionError.html">ConversionError</a></li><li><a href="CustomError.html">CustomError</a></li><li><a href="CustomError_CustomError.html">CustomError</a></li><li><a href="Embed.html">Embed</a></li><li><a href="Embed_Embed.html">Embed</a></li><li><a href="Guild.html">Guild</a></li><li><a href="HttpClient.html">HttpClient</a></li><li><a href="HttpClient_HttpClient.html">HttpClient</a></li><li><a href="MusicPlayer.html">MusicPlayer</a></li><li><a href="MusicPlayer_MusicPlayer.html">MusicPlayer</a></li><li><a href="Paginator.html">Paginator</a></li><li><a href="Paginator_Paginator.html">Paginator</a></li><li><a href="Queue.html">Queue</a></li><li><a href="Queue_Queue.html">Queue</a></li><li><a href="QueueEmbed.html">QueueEmbed</a></li><li><a href="QueueEmbed_QueueEmbed.html">QueueEmbed</a></li><li><a href="Song.html">Song</a></li><li><a href="Song_Song.html">Song</a></li><li><a href="SongEmbed.html">SongEmbed</a></li><li><a href="SongEmbed_SongEmbed.html">SongEmbed</a></li><li><a href="YoutubeAPIError.html">YoutubeAPIError</a></li><li><a href="YoutubeAPIError_CustomError.html">CustomError</a></li><li><a href="YoutubeClient.html">YoutubeClient</a></li><li><a href="YoutubeClient_HttpClient.html">HttpClient</a></li><li><a href="YoutubeClient_YoutubeClient.html">YoutubeClient</a></li><li><a href="YoutubeSong_YoutubeSong.html">YoutubeSong</a></li><li><a href="YoutubeSongEmbed.html">YoutubeSongEmbed</a></li><li><a href="YoutubeSongEmbed_YoutubeSongEmbed.html">YoutubeSongEmbed</a></li></ul><h3>Global</h3><ul><li><a href="global.html#checkStringIsNotUndefined">checkStringIsNotUndefined</a></li><li><a href="global.html#durationToMillis">durationToMillis</a></li><li><a href="global.html#envVarToBoolean">envVarToBoolean</a></li><li><a href="global.html#envVarToNumber">envVarToNumber</a></li><li><a href="global.html#extractPlaylistId">extractPlaylistId</a></li><li><a href="global.html#isUrl">isUrl</a></li><li><a href="global.html#isYoutubePlaylistUrl">isYoutubePlaylistUrl</a></li><li><a href="global.html#millisToMMSS">millisToMMSS</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#serviceErrors">serviceErrors</a></li><li><a href="global.html#stringToBoolean">stringToBoolean</a></li><li><a href="global.html#stringToNumber">stringToNumber</a></li><li><a href="global.html#toChunks">toChunks</a></li><li><a href="global.html#userErrors">userErrors</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Class</p>
+                    <h1>HttpClient</h1>
+                </header>
+                
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>
+            <span class="ancestors"><a href="YoutubeClient.html">YoutubeClient</a>#</span>HttpClient<span class="signature">(baseURL)</span><span class="type-signature"></span></h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
+
+
+    
+    <h4 class="name" id="HttpClient">
+        <a class="href-link" href="#HttpClient">#</a>
+        
+        <span class="code-name">
+            
+                new HttpClient<span class="signature">(baseURL)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>baseURL</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The baseUrl of the api</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="HttpClient_HttpClient.html">HttpClient#HttpClient</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="src_services_http.service.ts.html" class="button">View Source</a>
+            <span>
+                <a href="src_services_http.service.ts.html">src/services/http.service.ts</a>, <a href="src_services_http.service.ts.html#line12">line 12</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

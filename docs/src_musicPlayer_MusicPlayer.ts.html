@@ -1,0 +1,362 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> src/musicPlayer/MusicPlayer.ts</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-Convert.html">Convert</a></li><li><a href="module-convert_.html">convert</a></li><li><a href="module-Regex.html">Regex</a></li><li><a href="module-Util.html">Util</a></li></ul><h3>Classes</h3><ul><li><a href="Bot.html">Bot</a></li><li><a href="BotGuild.html">BotGuild</a></li><li><a href="Guild.html">Guild</a></li></ul><h3>Interfaces</h3><ul><li><a href="BotCommand.html">BotCommand</a></li><li><a href="YoutubePlaylistItem.html">YoutubePlaylistItem</a></li><li><a href="YoutubeSearch.html">YoutubeSearch</a></li><li><a href="YoutubeThumbnail.html">YoutubeThumbnail</a></li><li><a href="YoutubeVideo.html">YoutubeVideo</a></li><li><a href="YoutubeVideoBase.html">YoutubeVideoBase</a></li></ul></div><div class="category"><h2>Embeds</h2><h3>Classes</h3><ul><li><a href="Embed.html">Embed</a></li><li><a href="SongEmbed.html">SongEmbed</a></li><li><a href="YoutubeSongEmbed.html">YoutubeSongEmbed</a></li></ul><h3>Classes / Paginated</h3><ul><li><a href="Paginator.html">Paginator</a></li><li><a href="QueueEmbed.html">QueueEmbed</a></li></ul></div><div class="category"><h2>Errors</h2><h3>Classes</h3><ul><li><a href="ConversionError.html">ConversionError</a></li><li><a href="CustomError.html">CustomError</a></li><li><a href="YoutubeAPIError.html">YoutubeAPIError</a></li></ul></div><div class="category"><h2>MusicPlayer</h2><h3>Classes</h3><ul><li><a href="MusicPlayer.html">MusicPlayer</a></li><li><a href="Queue.html">Queue</a></li></ul></div><div class="category"><h2>Services</h2><h3>Classes</h3><ul><li><a href="HttpClient.html">HttpClient</a></li><li><a href="YoutubeClient.html">YoutubeClient</a></li></ul></div><div class="category"><h2>Song</h2><h3>Classes</h3><ul><li><a href="Song.html">Song</a></li><li><a href="YoutubeSong.html">YoutubeSong</a></li></ul></div><div class="category"><h2>locales</h2><h3>Interfaces / botEmbeds</h3><ul><li><a href="botEmbeds.html">botEmbeds</a></li><li><a href="songsInQueue.html">songsInQueue</a></li><li><a href="totalLength.html">totalLength</a></li></ul><h3>Interfaces / botErrors</h3><ul><li><a href="botErrors.html">botErrors</a></li></ul><h3>Interfaces / botMessage</h3><ul><li><a href="botMessages.html">botMessages</a></li><li><a href="searchingYoutubeVideo.html">searchingYoutubeVideo</a></li><li><a href="skippedTo.html">skippedTo</a></li></ul><h3>Interfaces / userErrors</h3><ul><li><a href="commandNeedsParameter.html">commandNeedsParameter</a></li><li><a href="isNotACommand.html">isNotACommand</a></li><li><a href="userErrors.html">userErrors</a></li></ul><h3>Interfaces</h3><ul><li><a href="global.html#locales">locales</a></li></ul><h3>Interfaces / serviceErrors</h3><ul><li><a href="serviceErrors.html">serviceErrors</a></li></ul><h3><a href="global.html">Global</a></h3></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>src/musicPlayer/MusicPlayer.ts</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {AudioPlayer,
+  AudioPlayerStatus,
+  AudioResource,
+  createAudioPlayer,
+  entersState,
+  getVoiceConnection,
+  joinVoiceChannel,
+  VoiceConnection,
+  VoiceConnectionDisconnectReason,
+  VoiceConnectionStatus} from '@discordjs/voice';
+import {VoiceChannel, Guild, StageChannel} from 'discord.js';
+import {wait} from '../helper/util';
+import Queue from './Queue';
+import Song from '../songs/Song';
+import locales from '../locales/locales';
+// import locales from '../locales/locales';
+import BotGuild from '../BotGuild';
+
+/**
+ * @category MusicPlayer
+ */
+class MusicPlayer {
+  /**
+   * The audio player
+   * @category MusicPlayer
+   * @type {AudioPlayer}
+   * @private
+   */
+  private readonly player: AudioPlayer = createAudioPlayer();
+
+  /**
+   * The voice channel where music is being played
+   * @type {VoiceChannel | StageChannel}
+   * @private
+   */
+  private voiceChannel: VoiceChannel | StageChannel;
+
+  /**
+   * The voice connection to the voice channel
+   * @type {VoiceConnection}
+   * @private
+   */
+  private voiceConnection: VoiceConnection;
+
+  /**
+   * The queue containing all songs to be played
+   * @type {Queue}
+   * @private
+   */
+  public queue: Queue;
+
+  /**
+   * @type {boolean}
+   * @private
+   */
+  private readyLock: boolean;
+
+  /**
+   * @type {BotGuild}
+   * @private
+   */
+  private botGuild: BotGuild;
+
+  /**
+   * @constructor
+   * @param {VoiceChannel} voiceChannel - The voice channel
+   * @param {Guild} guild - The guild
+   * @param {BotGuild} botGuild - The botGuild
+   */
+  constructor(
+      voiceChannel: VoiceChannel | StageChannel,
+      guild: Guild,
+      botGuild: BotGuild) {
+    this.botGuild = botGuild;
+    this.voiceChannel = voiceChannel;
+    this.queue = new Queue([]);
+    this.readyLock = false;
+
+    this.player.on('error', (error) => {
+      console.log('Music Player Error', error);
+      // TODO send Error playing audio
+    });
+
+    this.player.on(AudioPlayerStatus.Idle, () => {
+      this.playNextSong();
+    });
+
+    this.voiceConnection = joinVoiceChannel({
+      channelId: this.voiceChannel.id,
+      guildId: guild.id,
+      adapterCreator: guild.voiceAdapterCreator,
+    });
+
+    this.voiceConnection.on('stateChange', async (_, newState) => {
+      if (newState.status === VoiceConnectionStatus.Disconnected) {
+        if (newState.reason ===
+          VoiceConnectionDisconnectReason.WebSocketClose &amp;&amp;
+          newState.closeCode === 4014) {
+          /*
+            If the WebSocket closed with a 4014 code, this means
+            that we should not manually attempt to reconnect,
+            but there is a chance the connection will recover itself
+            if the reason of the disconnect was due to
+            switching voice channels. This is also the same code for the
+            bot being kicked from the voice channel,
+            so we allow 5 seconds to figure out which scenario it is.
+            If the bot has been kicked, we should destroy
+            the voice connection.
+            */
+          try {
+            await entersState(this.voiceConnection,
+                VoiceConnectionStatus.Connecting, 5_000);
+            // Probably moved voice channel
+          } catch {
+            this.voiceConnection.destroy();
+            // Probably removed from voice channel
+          }
+        } else if (this.voiceConnection.rejoinAttempts &lt; 5) {
+          /*
+          The disconnect in this case is recoverable,
+          and we also have &lt;5 repeated attempts so we will reconnect.
+          */
+          await wait((this.voiceConnection.rejoinAttempts + 1) * 5_000);
+          this.voiceConnection.rejoin();
+        } else {
+          /*
+            The disconnect in this case may
+            be recoverable, but we have no more remaining attempts - destroy.
+          */
+          this.voiceConnection.destroy();
+        }
+      } else if (newState.status === VoiceConnectionStatus.Destroyed) {
+        /*
+        Once destroyed, stop the subscription
+        */
+        this.quit();
+      } else if (
+        !this.readyLock &amp;&amp;
+        (newState.status === VoiceConnectionStatus.Connecting ||
+        newState.status === VoiceConnectionStatus.Signalling)
+      ) {
+        /*
+          In the Signalling or Connecting states,
+          we set a 20 second time limit for the connection to become ready
+          before destroying the voice connection.
+          This stops the voice connection permanently existing in one of these
+          states.
+        */
+        this.readyLock = true;
+        try {
+          await entersState(this.voiceConnection,
+              VoiceConnectionStatus.Ready, 20_000);
+        } catch {
+          if (this.voiceConnection.state.status !==
+            VoiceConnectionStatus.Destroyed) this.voiceConnection.destroy();
+        } finally {
+          this.readyLock = false;
+        }
+      }
+    });
+
+    this.voiceConnection.subscribe(this.player);
+  }
+
+  /**
+   * Plays the next song from the queue
+   * @private
+   */
+  public async playNextSong() {
+    const song: Song | undefined = this.queue.getNextSong();
+
+    if (song === undefined) {
+      // this.quit();
+      return;
+    }
+
+    // this.botGuild.sendEmbed(song.getEmbed(locales.botEmbeds.nowPlaying));
+
+    this.playSong(song);
+  }
+
+  /**
+   * Plays the next song
+   * @param {Song} song - The Song to be played;
+   * @public
+   */
+  private async playSong(song: Song) {
+    try {
+      const audioResource: AudioResource = await song.createAudioResource();
+
+      this.player.play(audioResource);
+    } catch (error) {
+      this.playNextSong();
+    }
+  }
+
+  /**
+   * Adds songs to the queue and starts playback if the
+   * player statde is idle
+   * @param {Song[]} songs - The songs to be added
+   * @param {number} index - At which index they should be added
+   * @public
+   */
+  public addToQueue(songs: Song[], index: number = this.queue.songs.length) {
+    this.queue.addToQueue(songs, index);
+
+    if (this.player.state.status === AudioPlayerStatus.Idle &amp;&amp;
+        this.queue.nowPlaying == null) {
+      this.playNextSong();
+    }
+  }
+
+  /**
+   * Removes all elements from 0 to index from the songs array
+   * @param {number} index
+   * @return {string} The message that should be sent to the user
+   */
+  public skipTo(index: number) : string {
+    if (index > this.queue.songs.length - 1 || index &lt;= 0) {
+      return `:x: ${locales.userErrors.positionNotExistant}`;
+    }
+
+    this.queue.skipTo(index - 1);
+    this.playNextSong();
+
+    return `:white_check_mark: ${locales.botMessages.skippedTo(index)}`;
+  }
+
+  /**
+   * Quits the connection and stops the AudioPlayer
+   * @public
+   */
+  public quit() {
+    this.player.stop();
+
+    const connection = getVoiceConnection(this.botGuild.guild.id);
+
+    if (connection) {
+      connection.disconnect();
+    }
+
+    return;
+  }
+}
+
+export default MusicPlayer;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

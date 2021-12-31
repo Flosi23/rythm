@@ -1,9 +1,11 @@
 import {MessageEmbed} from 'discord.js';
 
 /**
- * @class
+ * 
+ * @category Embeds
+ * @extends MessageEmbed
  */
-export default class Embed extends MessageEmbed {
+class Embed extends MessageEmbed {
   /**
    * Creates a basic embed
    * @constructor
@@ -12,3 +14,5 @@ export default class Embed extends MessageEmbed {
     super();
   }
 }
+
+export default Embed;

@@ -4,6 +4,10 @@ import {Duration} from '@js-joda/core';
 export const wait = promisify(setTimeout);
 
 /**
+ @module Util
+ */
+
+/**
  * Splits an array into evenly sized chunks
  * @param {any[]} array - The array to be splitted
  * @param {number} chunkSize - The chunk size

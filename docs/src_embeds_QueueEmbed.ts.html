@@ -1,0 +1,257 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> src/embeds/QueueEmbed.ts</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-Convert.html">Convert</a></li><li><a href="module-convert_.html">convert</a></li><li><a href="module-Regex.html">Regex</a></li><li><a href="module-Util.html">Util</a></li></ul><h3>Classes</h3><ul><li><a href="Bot.html">Bot</a></li><li><a href="BotGuild.html">BotGuild</a></li><li><a href="ConversionError.html">ConversionError</a></li><li><a href="CustomError.html">CustomError</a></li><li><a href="Embed.html">Embed</a></li><li><a href="Guild.html">Guild</a></li><li><a href="HttpClient.html">HttpClient</a></li><li><a href="MusicPlayer.html">MusicPlayer</a></li><li><a href="Paginator.html">Paginator</a></li><li><a href="Queue.html">Queue</a></li><li><a href="QueueEmbed.html">QueueEmbed</a></li><li><a href="Song.html">Song</a></li><li><a href="SongEmbed.html">SongEmbed</a></li><li><a href="YoutubeAPIError.html">YoutubeAPIError</a></li><li><a href="YoutubeClient.html">YoutubeClient</a></li><li><a href="YoutubeSong.html">YoutubeSong</a></li><li><a href="YoutubeSongEmbed.html">YoutubeSongEmbed</a></li></ul><h3>Interfaces</h3><ul><li><a href="BotCommand.html">BotCommand</a></li><li><a href="YoutubePlaylistItem.html">YoutubePlaylistItem</a></li><li><a href="YoutubeSearch.html">YoutubeSearch</a></li><li><a href="YoutubeThumbnail.html">YoutubeThumbnail</a></li><li><a href="YoutubeVideo.html">YoutubeVideo</a></li><li><a href="YoutubeVideoBase.html">YoutubeVideoBase</a></li></ul><h3>Global</h3><ul><li><a href="global.html#serviceErrors">serviceErrors</a></li><li><a href="global.html#userErrors">userErrors</a></li></ul></div><div class="category"><h2>Song</h2><h3>Classes</h3><ul><li><a href="Song.html">Song</a></li><li><a href="YoutubeSong.html">YoutubeSong</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>src/embeds/QueueEmbed.ts</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Queue from '../musicPlayer/Queue';
+import locales from '../locales/locales';
+import Song from '../songs/Song';
+import Paginator from './Paginator';
+import colors from '../../config/colors.config';
+import Embed from './Embed';
+import {millisToMMSS, toChunks} from '../helper/util';
+
+/**
+ * A paginated embed used to display the queue
+ * @class
+ * @extends Paginator
+ */
+class QueueEmbed extends Paginator {
+  /**
+   * The number of songs on one embed page
+   * @type {number}
+   * @private
+   */
+  private chunkSize: number = 9;
+
+  /**
+   * @constructor
+   * @param {Queue} queue - The title of the embed;
+   */
+  constructor(queue: Queue) {
+    super();
+
+    const mainPage = this.getBaseEmbed();
+
+    if (queue.nowPlaying !== null) {
+      mainPage.addField(
+          `__${locales.botEmbeds.nowPlaying}__:`,
+          this.createSongLine(queue.nowPlaying));
+    }
+
+    if (queue.songs.length === 0) {
+      mainPage.setDescription(locales.botEmbeds.queueIsEmpty);
+      this.pages.push(mainPage);
+      return;
+    }
+
+    const songChunks = toChunks(queue.songs, this.chunkSize);
+
+    songChunks.forEach((chunk: Song[], i) => {
+      const page = this.createDefaultPage(
+          chunk,
+          queue,
+          i*this.chunkSize,
+          i === 0 ? mainPage : null);
+      this.pages.push(page);
+    });
+  }
+
+  /**
+   * Creates the default embed with a list of the songs
+   * @param {Song[]} songs
+   * @param {Queue} queue
+   * @param {number} counter
+   * @param {Embed} embed
+   * @return {Embed}
+   */
+  private createDefaultPage(
+      songs: Song[],
+      queue: Queue,
+      counter: number,
+      embed: Embed | null) : Embed {
+    if (embed === null) {
+      embed = this.getBaseEmbed();
+    }
+
+    let songsString = '';
+
+    for (let i = 0; i &lt; songs.length; i++) {
+      const song: Song = songs[i];
+      const position = `\`${counter + 1}.\``;
+      const line = this.createSongLine(song);
+
+      songsString += `${position} ${line}`;
+      counter++;
+    }
+
+    embed.addField(
+        `__${locales.botEmbeds.upNext}__:`,
+        songsString,
+    );
+
+    const queueLength = `${locales.botEmbeds.songsInQueue(queue.songs.length)}`;
+    const totalLength =
+    `${locales.botEmbeds.totalLength(millisToMMSS(queue.getTotalPlayTime()))}`;
+
+    const loop = `${locales.botEmbeds.loop}: ${this.statusEmoji(queue.loop)}`;
+    const loopQueue =
+    `${locales.botEmbeds.loopQueue}: ${this.statusEmoji(queue.loopQueue)}`;
+
+    embed.setDescription(`**${queueLength} | ${totalLength}** \n
+    ${loop} | ${loopQueue} \n`);
+
+    return embed;
+  }
+
+  /**
+   * Returns a cross or checkmark depending on the value of the status
+   * @param {boolean} status
+   * @return {string}
+  */
+  private statusEmoji(status: boolean) : string {
+    if (!status) {
+      return ':x:';
+    }
+
+    return ':white_check_mark:';
+  }
+
+  /**
+   * Creates a Song line
+   * @param {Song} song - The Song
+   * @return {string}
+   */
+  private createSongLine(song: Song) : string {
+    const title = `[${song.getSongTitle()}](${song.url})`;
+    const duration = millisToMMSS(song.duration);
+    const requestor =
+      `${locales.botEmbeds.requestedBy}: ${song.requestor.username}`;
+
+    return `${title} | \`${duration} ${requestor}\`\n\n`;
+  }
+
+
+  /**
+   * @return {Embed}
+   */
+  protected getBaseEmbed() : Embed {
+    const embed: Embed = super.getBaseEmbed();
+    embed.setColor(colors.teal[400]);
+    embed.setTitle(locales.botEmbeds.queue);
+    return embed;
+  }
+}
+
+export default QueueEmbed;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

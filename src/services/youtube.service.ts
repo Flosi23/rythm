@@ -1,21 +1,23 @@
 import youtubeConfig from '../../config/youtube.config';
-import Song from '../models/Song';
+import Song from '../songs/Song';
 import HttpClient from './http.service';
 import {YoutubeAPIError} from '../errors/youtube.error';
 import {AxiosError} from 'axios';
 // import ytdl from 'ytdl-core-discord';
 import {extractPlaylistId} from '../helper/regex';
-import {YoutubePlaylistItem, YoutubeSearch, YoutubeVideo} from '../../types';
-import YoutubeSong from '../models/YoutubeSong';
+import YoutubePlaylistItem from '../interfaces/YoutubePlaylistItem';
+import YoutubeSearch from '../interfaces/YoutubeSearch';
+import YoutubeVideo from '../interfaces/YoutubeVideo';
+import YoutubeSong from '../songs/YoutubeSong';
 import {User} from 'discord.js';
 import {durationToMillis} from '../helper/util';
 // import {Readable} from 'stream';
 
 /**
- * @class YoutubeClient
+ * @category Services
  * @extends HttpClient
  */
-export default class YoutubeClient extends HttpClient {
+class YoutubeClient extends HttpClient {
   /**
    * @constructor
    */
@@ -25,6 +27,7 @@ export default class YoutubeClient extends HttpClient {
 
   /**
  * Construct a valid request url
+ * @private
  * @param {string} endpoint - The api endpoint the request should be send to
  * @param {string} params - Additional parameters needed for the request
  * @return {string} - Returns the complete request url
@@ -35,6 +38,7 @@ export default class YoutubeClient extends HttpClient {
 
   /**
  * Takes a videoId and returns the url to the video
+ * @private
  * @param {string} videoId
  * @return {string}
  */
@@ -44,6 +48,7 @@ export default class YoutubeClient extends HttpClient {
 
   /**
    * Fetches information for vidoes
+   * @private
    * @param {string[]} videoIds - The ids of the videos
    * @return {Promise<YoutubeVideo[] | YoutubeAPIError>}
    */
@@ -71,6 +76,7 @@ export default class YoutubeClient extends HttpClient {
   }
   /**
    * Finds and returns the first video that matches the search query
+   * @public
    * @param {string} query - The search query
    * @param {User} requestor - The user who requested the song
    * @return {Promise<Song | YoutubeAPIError>}
@@ -111,6 +117,7 @@ export default class YoutubeClient extends HttpClient {
    * Finds and returns the songs in a playlist
    * If the playlist has more than 50 entries it will call itself again with
    * the nextPageToken from the previous request.
+   * @public
    * @param {string} url - The playlist url;
    * @param {User} requestor - The user who requested the song
    * @param {string} pageToken - The pageToken that specifies a specific page
@@ -175,6 +182,8 @@ export default class YoutubeClient extends HttpClient {
 
   /**
    * Handles an occuring error
+   * @override
+   * @protected
    * @param {AxiosError} error - The error that occured
    * @return {Promise<any>} - Return
    */
@@ -184,3 +193,5 @@ export default class YoutubeClient extends HttpClient {
     return Promise.reject(youtubeError);
   }
 };
+
+export default YoutubeClient;

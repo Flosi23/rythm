@@ -1,8 +1,10 @@
 import Embed from './Embed';
 /**
- * @class
+ * 
+ * @category Embeds
+ * @extends Embed
  */
-export default class SongEmbed extends Embed {
+class SongEmbed extends Embed {
   /**
    * @constructor
    * @param {string} title - The title of the embed;
@@ -12,3 +14,5 @@ export default class SongEmbed extends Embed {
     this.setAuthor(title);
   }
 }
+
+export default SongEmbed;

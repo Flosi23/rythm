@@ -2,6 +2,11 @@ import ConversionError from '../src/errors/conversion.error';
 import {stringToBoolean, stringToNumber} from '../src/helper/convert';
 
 /**
+ * Module used to convert env vars to other types
+ @module convert
+ */
+
+/**
  * Converts a string from an env file to a number
  * @param {string | undefined} string - The variable to be converted
  * @return {number} - The converted string

@@ -1,8 +1,5 @@
 import serviceErrors from '../interfaces/service.errors';
 
-/**
- * Errors caused by the services
- */
 const serviceErrors: serviceErrors = {
   youtubeDefaultError: ':x: An error occured while fetching results',
   youtubeStatus400: ':x: The youtube server declined the request',

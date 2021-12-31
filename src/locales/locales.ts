@@ -1,5 +1,11 @@
 import enUS from './en-US/locales';
+import locales from './interfaces/locales';
 
-const locales = enUS;
+/**
+ * The currently selected language
+ * @category locales
+ * @type {locales}
+ */
+const locales : locales = enUS;
 
 export default locales;

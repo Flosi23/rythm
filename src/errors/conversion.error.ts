@@ -1,9 +1,11 @@
 import CustomError from './error';
 import locales from '../locales/locales';
 /**
- * @class
+ * 
+ * @category Errors
+ * @extends CustomError
  */
-export default class ConversionError extends CustomError {
+class ConversionError extends CustomError {
   /**
    * @constructor
    * @param {string} errorMessage - The error that occured
@@ -25,3 +27,5 @@ export default class ConversionError extends CustomError {
     return `:x: ${locales.botErrors.conversionErrorOccured}`;
   }
 };
+
+export default ConversionError;
