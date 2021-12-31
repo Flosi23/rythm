@@ -18,5 +18,5 @@ jobs:
 
       - name: 🔨 Build Docs
         run: |
-          npm
+          npm install
           npm run docs
