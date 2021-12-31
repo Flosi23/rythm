@@ -22,7 +22,7 @@ interface deleteSelf {
 
 /**
  * A discord guild
- * @class Guild
+ * @class BotGuild
  */
 class BotGuild {
   /**
