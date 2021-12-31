@@ -1,9 +1,26 @@
-// eslint-disable-next-line max-len
-const urlRegex = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
-// eslint-disable-next-line max-len
-const ytPlaylistRegex = /^(https|http):\/\/(?:www\.|music\.)?youtube\.com\/((playlist\?(list=[a-zA-Z0-9_\-]*))|(watch\?(((v=.*)&(list=[a-zA-Z0-9_\-]*))|((list=[a-zA-Z0-9_\-]*)&(v=.*))))).*$/gm;
+/**
+ @module Regex
+ */
 
-const findPlaylistIdRegex = /^list=([a-zA-Z0-9_\-]*)$/gm;
+
+/**
+ * Regex used to test if an url is valid or not
+ * @type {RegExp}
+ */
+// eslint-disable-next-line max-len
+const urlRegex: RegExp = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
+/**
+ * Regex used to test if an url links to a valid youtube playlist
+ * @type {RegExp}
+ */
+// eslint-disable-next-line max-len
+const ytPlaylistRegex: RegExp = /^(https|http):\/\/(?:www\.|music\.)?youtube\.com\/((playlist\?(list=[a-zA-Z0-9_\-]*))|(watch\?(((v=.*)&(list=[a-zA-Z0-9_\-]*))|((list=[a-zA-Z0-9_\-]*)&(v=.*))))).*$/gm;
+
+/**
+ * Regex used to extract the playlistId from a valid youtube playlist url
+ * @type {RegExp}
+ */
+const findPlaylistIdRegex: RegExp = /^list=([a-zA-Z0-9_\-]*)$/gm;
 /**
  * Checks if a string is a valid url
  * @param {string} string - The string to be tested;

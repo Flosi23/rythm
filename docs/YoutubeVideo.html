@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> YoutubeVideo</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-Convert.html">Convert</a></li><li><a href="module-convert_.html">convert</a></li><li><a href="module-Regex.html">Regex</a></li><li><a href="module-Util.html">Util</a></li></ul><h3>Classes</h3><ul><li><a href="Bot.html">Bot</a></li><li><a href="BotGuild.html">BotGuild</a></li><li><a href="Guild.html">Guild</a></li></ul><h3>Interfaces</h3><ul><li><a href="BotCommand.html">BotCommand</a></li><li><a href="YoutubePlaylistItem.html">YoutubePlaylistItem</a></li><li><a href="YoutubeSearch.html">YoutubeSearch</a></li><li><a href="YoutubeThumbnail.html">YoutubeThumbnail</a></li><li><a href="YoutubeVideo.html">YoutubeVideo</a></li><li><a href="YoutubeVideoBase.html">YoutubeVideoBase</a></li></ul></div><div class="category"><h2>Embeds</h2><h3>Classes</h3><ul><li><a href="Embed.html">Embed</a></li><li><a href="SongEmbed.html">SongEmbed</a></li><li><a href="YoutubeSongEmbed.html">YoutubeSongEmbed</a></li></ul><h3>Classes / Paginated</h3><ul><li><a href="Paginator.html">Paginator</a></li><li><a href="QueueEmbed.html">QueueEmbed</a></li></ul></div><div class="category"><h2>Errors</h2><h3>Classes</h3><ul><li><a href="ConversionError.html">ConversionError</a></li><li><a href="CustomError.html">CustomError</a></li><li><a href="YoutubeAPIError.html">YoutubeAPIError</a></li></ul></div><div class="category"><h2>MusicPlayer</h2><h3>Classes</h3><ul><li><a href="MusicPlayer.html">MusicPlayer</a></li><li><a href="Queue.html">Queue</a></li></ul></div><div class="category"><h2>Services</h2><h3>Classes</h3><ul><li><a href="HttpClient.html">HttpClient</a></li><li><a href="YoutubeClient.html">YoutubeClient</a></li></ul></div><div class="category"><h2>Song</h2><h3>Classes</h3><ul><li><a href="Song.html">Song</a></li><li><a href="YoutubeSong.html">YoutubeSong</a></li></ul></div><div class="category"><h2>locales</h2><h3>Interfaces / botEmbeds</h3><ul><li><a href="botEmbeds.html">botEmbeds</a></li><li><a href="songsInQueue.html">songsInQueue</a></li><li><a href="totalLength.html">totalLength</a></li></ul><h3>Interfaces / botErrors</h3><ul><li><a href="botErrors.html">botErrors</a></li></ul><h3>Interfaces / botMessage</h3><ul><li><a href="botMessages.html">botMessages</a></li><li><a href="searchingYoutubeVideo.html">searchingYoutubeVideo</a></li><li><a href="skippedTo.html">skippedTo</a></li></ul><h3>Interfaces / userErrors</h3><ul><li><a href="commandNeedsParameter.html">commandNeedsParameter</a></li><li><a href="isNotACommand.html">isNotACommand</a></li><li><a href="userErrors.html">userErrors</a></li></ul><h3>Interfaces</h3><ul><li><a href="global.html#locales">locales</a></li></ul><h3>Interfaces / serviceErrors</h3><ul><li><a href="serviceErrors.html">serviceErrors</a></li></ul><h3><a href="global.html">Global</a></h3></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Interface</p>
+                    <h1>YoutubeVideo</h1>
+                </header>
+                
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>YoutubeVideo</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>The YoutubeApiResponse describing a youtube video</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="src_interfaces_YoutubeVideo.ts.html" class="button">View Source</a>
+            <span>
+                <a href="src_interfaces_YoutubeVideo.ts.html">src/interfaces/YoutubeVideo.ts</a>, <a href="src_interfaces_YoutubeVideo.ts.html#line4">line 4</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+        
+    
+    </div>
+    
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li><a href="YoutubeVideoBase.html">YoutubeVideoBase</a></li>
+    </ul>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Members</h1>
+            <div class="members">
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">object</span>
+
+
+    </span>
+
+<h4 class="name" id="contentDetails">
+    <a class="href-link" href="#contentDetails">#</a>
+    
+    <span class="code-name">
+        contentDetails
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>The object contains additional information about the video.</p>
+</div>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+<div class="table-container">
+    <table class="props table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>duration</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The length of the video. The property value is an ISO 8601 duration.</p></td>
+</tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="src_interfaces_YoutubeVideo.ts.html" class="button">View Source</a>
+            <span>
+                <a href="src_interfaces_YoutubeVideo.ts.html">src/interfaces/YoutubeVideo.ts</a>, <a href="src_interfaces_YoutubeVideo.ts.html#line16">line 16</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">string</span>
+
+
+    </span>
+
+<h4 class="name" id="etag">
+    <a class="href-link" href="#etag">#</a>
+    
+    <span class="code-name">
+        etag
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>The Etag of this resource.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="YoutubeVideoBase.html#etag">YoutubeVideoBase#etag</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="src_interfaces_YoutubeVideoBase.ts.html" class="button">View Source</a>
+            <span>
+                <a href="src_interfaces_YoutubeVideoBase.ts.html">src/interfaces/YoutubeVideoBase.ts</a>, <a href="src_interfaces_YoutubeVideoBase.ts.html#line15">line 15</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">string</span>
+
+
+    </span>
+
+<h4 class="name" id="id">
+    <a class="href-link" href="#id">#</a>
+    
+    <span class="code-name">
+        id
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>The ID that YouTube uses to uniquely identify the playlist item.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="src_interfaces_YoutubeVideo.ts.html" class="button">View Source</a>
+            <span>
+                <a href="src_interfaces_YoutubeVideo.ts.html">src/interfaces/YoutubeVideo.ts</a>, <a href="src_interfaces_YoutubeVideo.ts.html#line10">line 10</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">string</span>
+
+
+    </span>
+
+<h4 class="name" id="kind">
+    <a class="href-link" href="#kind">#</a>
+    
+    <span class="code-name">
+        kind
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>the API resource's type. The value will be youtube#searchListResponse.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="YoutubeVideoBase.html#kind">YoutubeVideoBase#kind</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="src_interfaces_YoutubeVideoBase.ts.html" class="button">View Source</a>
+            <span>
+                <a href="src_interfaces_YoutubeVideoBase.ts.html">src/interfaces/YoutubeVideoBase.ts</a>, <a href="src_interfaces_YoutubeVideoBase.ts.html#line9">line 9</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">object</span>
+
+
+    </span>
+
+<h4 class="name" id="snippet">
+    <a class="href-link" href="#snippet">#</a>
+    
+    <span class="code-name">
+        snippet
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>The snippet object contains basic details about a search result,
+such as its title or description.</p>
+</div>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+<div class="table-container">
+    <table class="props table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>publishedAt</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>channelId</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>title</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>description</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>thumbnails</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">object</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+  
+      
+<tr class="deep-level-1">
+    
+        <td class="name"><code>default</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="YoutubeThumbnail.html">YoutubeThumbnail</a></span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The default thumbnail image.</p></td>
+</tr>
+
+  
+      
+<tr class="deep-level-1">
+    
+        <td class="name"><code>medium</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="YoutubeThumbnail.html">YoutubeThumbnail</a></span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>A higher resolution version of the thumbnail image</p></td>
+</tr>
+
+  
+      
+<tr class="deep-level-1">
+    
+        <td class="name"><code>high</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="YoutubeThumbnail.html">YoutubeThumbnail</a></span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>A high resolution version of the thumbnail image</p></td>
+</tr>
+
+  
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>channelTitle</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="YoutubeVideoBase.html#snippet">YoutubeVideoBase#snippet</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="src_interfaces_YoutubeVideoBase.ts.html" class="button">View Source</a>
+            <span>
+                <a href="src_interfaces_YoutubeVideoBase.ts.html">src/interfaces/YoutubeVideoBase.ts</a>, <a href="src_interfaces_YoutubeVideoBase.ts.html#line21">line 21</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

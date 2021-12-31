@@ -2,10 +2,10 @@
 import axios, {AxiosError, AxiosInstance, AxiosResponse} from 'axios';
 
 /**
- * @class HttpClient
+ * @category Services
  * @abstract
  */
-export default abstract class HttpClient {
+abstract class HttpClient {
   /**
    * The axios instance
    * @protected
@@ -15,7 +15,7 @@ export default abstract class HttpClient {
 
   /**
    * @constructor
-   * @param {string} baseURL
+   * @param {string} baseURL - The baseUrl of the api
    */
   public constructor(baseURL: string) {
     this.instance = axios.create({
@@ -38,6 +38,7 @@ export default abstract class HttpClient {
 
   /**
    * Handles a succesfull response
+   * @protected
    * @param {AxiosResponse} response - The response
    * @return {AxiosResponse}
    */
@@ -47,6 +48,7 @@ export default abstract class HttpClient {
 
   /**
    * Handles an occuring error
+   * @protected
    * @param {AxiosError} error - The error that occured
    * @param {AxiosResponse} response - The response
    * @return {Promise<any>} - Return
@@ -56,3 +58,4 @@ export default abstract class HttpClient {
   }
 }
 
+export default HttpClient;

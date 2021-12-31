@@ -1,0 +1,452 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> src/models/Guild.ts</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Bot.html">Bot</a></li><li><a href="Guild.html">Guild</a></li><li><a href="HttpClient.html">HttpClient</a></li><li><a href="module.exports.html">exports</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="MusicPlayer.html">MusicPlayer</a></li><li><a href="Queue.html">Queue</a></li><li><a href="Song.html">Song</a></li><li><a href="YoutubeAPIError.html">YoutubeAPIError</a></li><li><a href="YoutubeClient.html">YoutubeClient</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addToQueue">addToQueue</a></li><li><a href="global.html#checkStringIsNotUndefined">checkStringIsNotUndefined</a></li><li><a href="global.html#createAudioResource">createAudioResource</a></li><li><a href="global.html#createDefaultPage">createDefaultPage</a></li><li><a href="global.html#createSongLine">createSongLine</a></li><li><a href="global.html#durationToMillis">durationToMillis</a></li><li><a href="global.html#envVarToBoolean">envVarToBoolean</a></li><li><a href="global.html#envVarToNumber">envVarToNumber</a></li><li><a href="global.html#extractPlaylistId">extractPlaylistId</a></li><li><a href="global.html#forcePlay">forcePlay</a></li><li><a href="global.html#getBaseEmbed">getBaseEmbed</a></li><li><a href="global.html#getEmbed">getEmbed</a></li><li><a href="global.html#getMessage">getMessage</a></li><li><a href="global.html#getNextSong">getNextSong</a></li><li><a href="global.html#getPlaylist">getPlaylist</a></li><li><a href="global.html#getSongs">getSongs</a></li><li><a href="global.html#getSongTitle">getSongTitle</a></li><li><a href="global.html#getTotalPlayTime">getTotalPlayTime</a></li><li><a href="global.html#getVideo">getVideo</a></li><li><a href="global.html#handleCommand">handleCommand</a></li><li><a href="global.html#handleError">handleError</a></li><li><a href="global.html#handleResponse">handleResponse</a></li><li><a href="global.html#handleUrl">handleUrl</a></li><li><a href="global.html#isUrl">isUrl</a></li><li><a href="global.html#isYoutubePlaylistUrl">isYoutubePlaylistUrl</a></li><li><a href="global.html#listen">listen</a></li><li><a href="global.html#makeBold">makeBold</a></li><li><a href="global.html#millisToMMSS">millisToMMSS</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#play">play</a></li><li><a href="global.html#playSong">playSong</a></li><li><a href="global.html#quit">quit</a></li><li><a href="global.html#send">send</a></li><li><a href="global.html#sendEmbed">sendEmbed</a></li><li><a href="global.html#sendMessage">sendMessage</a></li><li><a href="global.html#sendPaginator">sendPaginator</a></li><li><a href="global.html#serviceErrors">serviceErrors</a></li><li><a href="global.html#setFooter">setFooter</a></li><li><a href="global.html#skipTo">skipTo</a></li><li><a href="global.html#statusEmoji">statusEmoji</a></li><li><a href="global.html#stringToBoolean">stringToBoolean</a></li><li><a href="global.html#stringToNumber">stringToNumber</a></li><li><a href="global.html#toChunks">toChunks</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#userErrors">userErrors</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>src/models/Guild.ts</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {
+  TextChannel,
+  Message,
+  VoiceChannel,
+  StageChannel,
+  Guild} from 'discord.js';
+import {YoutubeAPIError} from '../errors/youtube.error';
+import locales from '../locales/locales';
+import MusicPlayer from './MusicPlayer';
+import YoutubeClient from '../services/youtube.service';
+import Song from './Song';
+import {isUrl, isYoutubePlaylistUrl} from '../helper/regex';
+import Embed from '../embeds/Embed';
+import QueueEmbed from '../embeds/QueueEmbed';
+import Paginator from '../embeds/Paginator';
+import {stringToNumber} from '../helper/convert';
+import ConversionError from '../errors/conversion.error';
+
+interface deleteSelf {
+  (): boolean
+}
+
+/**
+ * A discord guild
+ * @class Guild
+ */
+export default class BotGuild {
+  /**
+   * The guild
+   * @type {Guild}
+   * @private
+   */
+  public guild: Guild;
+
+  /**
+   * Text channel to write messages in
+   * @type {TextChannel}
+   * @private
+   */
+  private textChannel: TextChannel;
+
+  /**
+   * The client for the youtube api
+   * @type {YoutubeClient}
+   * @private
+   */
+  private youtubeClient: YoutubeClient;
+
+
+  /**
+   * The music player
+   * @type {MusicPlayer}
+   * @private
+   */
+  private player: MusicPlayer | null = null;
+
+  /**
+   * Callback-Function to remove this guild from the guilds collection
+   * @type {deleteSelf}
+   * @private
+   */
+  private deleteSelf: deleteSelf
+
+
+  /**
+   * @constructor
+   * @param {Guild} guild - The Id of the guild
+   * @param {TextChannel} textChannel - The text channel of the msg
+   * @param {deleteSelf} deleteSelf -
+   * Callback to remove this guild from the guilds collection
+   */
+  constructor(
+      guild: Guild,
+      textChannel: TextChannel,
+      deleteSelf: deleteSelf) {
+    this.guild = guild;
+    this.textChannel = textChannel;
+    this.youtubeClient = new YoutubeClient();
+    this.deleteSelf = deleteSelf;
+  }
+
+  /**
+   * Makes the text bold and sends it
+   * @param {string} text - The text to be sent
+   */
+  public sendMessage(text: string) : void {
+    this.textChannel.send(`**${text}**`);
+  }
+
+  /**
+   * Sends an embed
+   * @param {Embed} embed
+   */
+  public sendEmbed(embed: Embed) : void {
+    this.textChannel.send({embeds: [embed]});
+  }
+
+  /**
+   * Sends an embed with several pages
+   * @param {Paginator} paginator
+   */
+  public sendPaginator(paginator: Paginator) : void {
+    paginator.send(this.textChannel);
+  }
+
+  /**
+   * Handle an incoming command
+   * @param {string} command - The command
+   * @param {string} param - Parameter for the command
+   * @param {Message} msg - The msg object
+   * @return {void}
+   */
+  public handleCommand(
+      command: string,
+      param: string | null,
+      msg: Message,
+  ) : void {
+    if (command === 'p' || command === 'play') {
+      if (msg.member === null || msg.guild === null) {
+        return this.sendMessage(locales.botErrors.errorWhileExecutingCommand);
+      }
+
+      if (param === null) {
+        return this.sendMessage(
+            locales.userErrors.commandNeedsParameter(command));
+      }
+
+      if (msg.member.voice.channel === null) {
+        return this.sendMessage(locales.userErrors.notInVoiceChannel);
+      }
+
+      this.play(param, msg.member.voice.channel, msg);
+      return;
+    }
+
+    if (command === 'fp' || command === 'forceplay') {
+      if (msg.member === null || msg.guild === null) {
+        return this.sendMessage(locales.botErrors.errorWhileExecutingCommand);
+      }
+
+      if (param === null) {
+        return this.sendMessage(
+            locales.userErrors.commandNeedsParameter(command));
+      }
+
+      if (msg.member.voice.channel === null) {
+        return this.sendMessage(locales.userErrors.notInVoiceChannel);
+      }
+
+      this.forcePlay(param, msg.member.voice.channel, msg);
+      return;
+    }
+
+    if (command === 'loop') {
+      if (this.player === null) return;
+
+      this.player.queue.loop = !this.player.queue.loop;
+
+      if (this.player.queue.loop) {
+        this.sendMessage(
+            `:arrows_counterclockwise: ${locales.botMessages.loopEnabled}`);
+      } else {
+        this.sendMessage(`:x: ${locales.botMessages.loopDisabled}`);
+      }
+
+      return;
+    }
+
+    if (command === 'loopq' || command === 'loopqueue') {
+      if (this.player === null) return;
+
+      this.player.queue.loopQueue = !this.player.queue.loopQueue;
+
+      if (this.player.queue.loopQueue) {
+        this.sendMessage(
+            // eslint-disable-next-line max-len
+            `:arrows_counterclockwise: ${locales.botMessages.loopQueueEnabled}`);
+      } else {
+        this.sendMessage(`:x: ${locales.botMessages.loopQueueDisabled}`);
+      }
+
+      return;
+    }
+
+    if (command === 'quit' || command === 'leave') {
+      if (this.player === null) return;
+
+      this.player.quit();
+      this.deleteSelf();
+      this.sendMessage(locales.botMessages.botLeft);
+      return;
+    }
+
+    if (command === 'skip' || command === 'fs') {
+      if (this.player === null) return;
+
+      this.player.playNextSong();
+      this.sendMessage(locales.botMessages.songSkipped);
+      return;
+    }
+
+    if (command === 'skipto') {
+      if (this.player === null) return;
+
+      if (param === null) {
+        return this.sendMessage(
+            locales.userErrors.commandNeedsParameter(command));
+      }
+
+      const convert = stringToNumber(param);
+
+      if (convert instanceof ConversionError) {
+        this.sendMessage(convert.message);
+        return;
+      }
+
+      const message = this.player.skipTo(convert);
+      this.sendMessage(message);
+      return;
+    }
+
+    if (command === 'q' || command === 'queue') {
+      if (this.player === null) {
+        return;
+      }
+
+      this.sendPaginator(new QueueEmbed(this.player.queue));
+      return;
+    }
+
+    this.sendMessage(locales.userErrors.isNotACommand(command));
+  }
+
+  /**
+   * Adds a new song to the queue
+   * @param {string} param - Command parameter
+   * @param {VoiceChannel | StageChannel} voiceChannel - Original message
+   * @param {Message} msg - The original message
+   * @return {Promise&lt;void>}
+   */
+  private async forcePlay(
+      param: string,
+      voiceChannel: VoiceChannel | StageChannel,
+      msg: Message,
+  ) : Promise&lt;void> {
+    const songs: Song[] = await this.getSongs(param, voiceChannel, msg);
+
+    if (this.player !== null) {
+      this.player.addToQueue(songs, 0);
+    }
+  };
+
+  /**
+   * Adds a new song to the queue
+   * @param {string} param - Command parameter
+   * @param {VoiceChannel | StageChannel} voiceChannel - Original message
+   * @param {Message} msg - The original message
+   * @return {Promise&lt;void>}
+   */
+  private async play(
+      param: string,
+      voiceChannel: VoiceChannel | StageChannel,
+      msg: Message,
+  ) : Promise&lt;void> {
+    const songs: Song[] = await this.getSongs(param, voiceChannel, msg);
+
+    if (this.player !== null) {
+      this.player.addToQueue(songs);
+    }
+  };
+
+
+  /**
+   * Returns a list of songs
+   * @param {string} param
+   * @param {Voicechannel | StageChannel} voiceChannel
+   * @param {Message} msg
+   */
+  private async getSongs(
+      param: string,
+      voiceChannel: VoiceChannel | StageChannel,
+      msg: Message,
+  ) : Promise&lt;Song[]> {
+    if (this.player === null) {
+      this.player = new MusicPlayer(
+          voiceChannel,
+          this.guild,
+          this);
+    }
+
+    // regex matches every URL
+    // eslint-disable-next-line max-len
+
+    let songs : Song[] = [];
+
+    if (isUrl(param)) {
+      songs = await this.handleUrl(param, msg);
+    } else {
+      this.sendMessage(locales.botMessages.searchingYoutubeVideo(param));
+
+      const song = await this.youtubeClient.getVideo(param, msg.author);
+
+      if (song instanceof YoutubeAPIError) {
+        this.sendMessage(song.message);
+        return [];
+      }
+
+      this.sendEmbed(song.getEmbed(locales.botEmbeds.addedToQueue));
+
+      songs = [song];
+    }
+
+    return songs;
+  }
+
+  /**
+   *
+   * @param {string} url
+   * @param {Message} msg - The original message
+   * @return {Song[]} - The songs that should be added to the queue
+   */
+  private async handleUrl(url: string, msg: Message) : Promise&lt;Song[]> {
+    if (isYoutubePlaylistUrl(url)) {
+      const songs = await this.youtubeClient.getPlaylist(url, msg.author);
+
+      if (songs instanceof YoutubeAPIError) {
+        this.sendMessage(songs.message);
+        return [];
+      }
+
+      return songs;
+    }
+
+    return [];
+  }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

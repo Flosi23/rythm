@@ -2,7 +2,9 @@ import {AxiosError} from 'axios';
 import locales from '../locales/locales';
 import CustomError from './error';
 /**
- * @class
+ * 
+ * @category Errors
+ * @extends CustomError
  */
 export class YoutubeAPIError extends CustomError {
   /**
@@ -15,7 +17,7 @@ export class YoutubeAPIError extends CustomError {
   };
 
   /**
-   * Get the right message
+   * Get the right error message
    * @param {AxiosError} error
    * @return {string} - The message
    */

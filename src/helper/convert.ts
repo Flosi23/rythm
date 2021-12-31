@@ -1,6 +1,10 @@
 import ConversionError from '../errors/conversion.error';
 
 /**
+@module Convert
+*/
+
+/**
  * Converts a string from an env file to a number
  * @param {string | undefined} string - The variable to be converted
  * @return {number} - The converted string

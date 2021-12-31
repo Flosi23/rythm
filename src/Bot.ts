@@ -1,14 +1,16 @@
 import Discord, {Guild, Collection, TextChannel} from 'discord.js';
-import {BotCommand, GuildId} from '../types';
+import {GuildId} from '../types';
+import BotCommand from './interfaces/BotCommand';
 import {Client, Message} from 'discord.js';
 import botConfig from '../config/bot.config';
-import BotGuild from './models/Guild';
+import BotGuild from './BotGuild';
 import YoutubeClient from './services/youtube.service';
 /**
  * The Bot class handles incoming messages and logging in
+ * Bot
  * @class Bot
  */
-export default class Bot {
+class Bot {
   /**
    * The token of the bot
    * @type {string}
@@ -52,6 +54,7 @@ export default class Bot {
 
   /**
    * Bot starts up and listeners are assigned
+   * @public
    */
   public listen(): void {
     this.discordClient.on('messageCreate', (msg: Message) => {
@@ -73,6 +76,7 @@ export default class Bot {
    * Handles an incoming message.
    * Returns when the msg was send by the bot or it doesnt begin with the prefix
    * . Splits the message in command and parameter
+   * @private
    * @param {Message} msg - The incoming message
    */
   private message(msg: Message) : void {
@@ -93,6 +97,7 @@ export default class Bot {
 
   /**
    * Filters command and its parameter from a msg
+   * @private
    * @param {Message} msg - The msg sent
    * @return {BotCommand} - The command and param
    */
@@ -138,12 +143,13 @@ export default class Bot {
   }
   /**
    * Handles a command sent on a guild
+   * @private
    * @param {string} command - The command
    * @param {string | null} param - The parameter passed with the command
    * @param {Message} msg - The discord msg object (The original message)
    * @param {Guild} guild - The discord guild the msg was sent from
    */
-  protected handleGuildCommand(
+  private handleGuildCommand(
       command: string,
       param: string | null,
       msg: Message,
@@ -169,14 +175,17 @@ export default class Bot {
 
   /**
    * Handles a command sent via dm
+   * @private
    * @param {string} command - The command
    * @param {string | null} param - The parameter passed with the command
    * @param {Message} msg - The discord msg object (The original message)
    */
-  protected handleUserCommand(
+  private handleUserCommand(
       command: string,
       param: string | null,
       msg: Message) : void {
     return;
   }
 }
+
+export default Bot;

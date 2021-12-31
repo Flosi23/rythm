@@ -1,8 +1,10 @@
 /**
  * The default custom error
- * @class
+ * 
+ * @Category Errors
+ * @abstract
  */
-export default abstract class CustomError {
+abstract class CustomError {
   /**
    * The error that occured
    * @type {any}
@@ -25,3 +27,5 @@ export default abstract class CustomError {
     this.message = message;
   };
 }
+
+export default CustomError;
