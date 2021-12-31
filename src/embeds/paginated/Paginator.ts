@@ -5,7 +5,6 @@ import {mod} from '../../helper/util';
 
 /**
  * A Paginator that enables to navigate between multiple embeds ussing arrows
- * 
  * @category Embeds
  * @subcategory Paginated
  * @abstract
