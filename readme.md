@@ -32,3 +32,7 @@ A music bot, similar to rythm to queue up and play youtube videos and playlists
 - In order to build and run the application, use: `npm run serve`
 - If you only want to build the application, use: `npm run build`
 - If you only want to run an already build version, use: `npm run start`
+
+### Code Documentation
+
+For a full Code documentation visit [https://flosi23.github.io/rythm/](https://flosi23.github.io/rythm/)
