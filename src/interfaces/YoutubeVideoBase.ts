@@ -22,27 +22,27 @@ interface YoutubeVideoBase {
    */
   snippet: {
     /**
-     * @type {string}
      * The creation date and time of the resource
      * that the search result identifies.
      * The value is specified in ISO 8601 format.
+     * @type {string}
      */
     publishedAt: string,
     /**
-     * @type {string}
      * The value that YouTube uses to uniquely identify
      * the channel that published the resource that the search result
      * identifies.
+     * @type {string}
      */
     channelId: string,
     /**
-     * @type {string}
      * The title of the search result.
+     * @type {string}
      */
     title: string,
     /**
-     * @type {string}
      * A description of the search result.
+     * @type {string}
      */
     description: string,
     thumbnails: {
@@ -63,9 +63,9 @@ interface YoutubeVideoBase {
         high: YoutubeThumbnail
     }
     /**
-     * @type {string}
      * The title of the channel that published
      * the resource that the search result identifies.
+     * @type {string}
      */
     channelTitle: string,
   }
