@@ -11,23 +11,23 @@ interface YoutubeSearch extends YoutubeVideoBase {
    */
   id: {
     /**
+     * The type of the API resource.
      @type {string}
-     The type of the API resource.
      */
     kind: string,
     /**
+     * the ID that YouTube uses to uniquely identify a video
      @type {string}
-     the ID that YouTube uses to uniquely identify a video
      */
     videoId: string,
     /**
+     * the ID that YouTube uses to uniquely identify a channel
      @type {string}
-     the ID that YouTube uses to uniquely identify a channel
      */
     channelId: string,
     /**
-     * @type {string}
      * the ID that YouTube uses to uniquely identify a playlist
+     * @type {string}
      */
     playlistId: string,
   },
