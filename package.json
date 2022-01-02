@@ -25,7 +25,7 @@
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
     "libsodium-wrappers": "^0.7.9",
-    "youtube-dl-exec": "^1.2.6"
+    "youtube-dl-exec": "^1.2.4"
   },
   "bugs": {
     "url": "https://github.com/Flosi23/rythm/issues"

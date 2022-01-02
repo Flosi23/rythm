@@ -18,7 +18,7 @@ class QueueEmbed extends Paginator {
    * @type {number}
    * @private
    */
-  private chunkSize: number = 9;
+  private chunkSize: number = 7;
 
   /**
    * @constructor
