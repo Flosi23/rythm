@@ -2,6 +2,7 @@ import {AudioPlayer,
   AudioPlayerStatus,
   AudioResource,
   createAudioPlayer,
+  DiscordGatewayAdapterCreator,
   entersState,
   getVoiceConnection,
   joinVoiceChannel,
@@ -88,7 +89,8 @@ class MusicPlayer {
     this.voiceConnection = joinVoiceChannel({
       channelId: this.voiceChannel.id,
       guildId: guild.id,
-      adapterCreator: guild.voiceAdapterCreator,
+      // eslint-disable-next-line max-len
+      adapterCreator: guild.voiceAdapterCreator as unknown as DiscordGatewayAdapterCreator,
     });
 
     this.voiceConnection.on('stateChange', async (_, newState) => {
