@@ -1,4 +1,4 @@
-import YoutubeVideoBase from '../interfaces/YoutubeVideoBase';
+import YoutubeBaseResponse from '../interfaces/YoutubeApi/YoutubeBaseResponse';
 import YoutubeSongEmbed from '../embeds/YoutubeSongEmbed';
 import Song from './Song';
 import {raw as youtubedl} from 'youtube-dl-exec';
@@ -15,7 +15,7 @@ class YoutubeSong extends Song {
    * @type {YoutubeVideoBase | null}
    * @public
    */
-  public metadata: YoutubeVideoBase;
+  public metadata: YoutubeBaseResponse;
 
   /**
    * @constructor
@@ -26,7 +26,7 @@ class YoutubeSong extends Song {
    */
   constructor(
       url: string,
-      duration: number, requestor: User, metadata: YoutubeVideoBase) {
+      duration: number, requestor: User, metadata: YoutubeBaseResponse) {
     super(url, duration, requestor);
     this.metadata = metadata;
   }

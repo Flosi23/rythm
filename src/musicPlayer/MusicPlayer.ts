@@ -218,14 +218,16 @@ class MusicPlayer {
    * @return {string} The message that should be sent to the user
    */
   public skipTo(index: number) : string {
+    index = index - 1;
+
     if (index > this.queue.songs.length - 1 || index <= 0) {
       return `:x: ${locales.userErrors.positionNotExistant}`;
     }
 
-    this.queue.skipTo(index - 1);
+    this.queue.skipTo(index);
     this.playNextSong();
 
-    return `:white_check_mark: ${locales.botMessages.skippedTo(index)}`;
+    return `:white_check_mark: ${locales.botMessages.skippedTo(index + 1)}`;
   }
 
   /**

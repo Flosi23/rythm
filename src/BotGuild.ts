@@ -15,6 +15,7 @@ import QueueEmbed from './embeds/paginated/QueueEmbed';
 import Paginator from './embeds/paginated/Paginator';
 import {stringToNumber} from './helper/convert';
 import ConversionError from './errors/conversion.error';
+import YoutubePlaylistEmbed from './embeds/YoutubePlaylistEmbed';
 
 interface deleteSelf {
   (): boolean
@@ -321,14 +322,19 @@ class BotGuild {
    */
   private async handleUrl(url: string, msg: Message) : Promise<Song[]> {
     if (isYoutubePlaylistUrl(url)) {
-      const songs = await this.youtubeClient.getPlaylist(url, msg.author);
+      this.sendMessage(locales.botMessages.fetchingPlaylist);
 
-      if (songs instanceof YoutubeAPIError) {
-        this.sendMessage(songs.message);
+      const playlist = await this.youtubeClient.getPlaylist(url, msg.author);
+
+      if (playlist instanceof YoutubeAPIError) {
+        this.sendMessage(playlist.message);
         return [];
       }
 
-      return songs;
+      this.sendEmbed(
+          new YoutubePlaylistEmbed(locales.botEmbeds.addedToQueue, playlist));
+
+      return playlist.songs;
     }
 
     return [];

@@ -65,6 +65,10 @@ interface botMessages {
    * @type {skippedTo}
    */
   skippedTo: skippedTo,
+  /**
+   * @type {string}
+   */
+  fetchingPlaylist: string,
 }
 
 export default botMessages;

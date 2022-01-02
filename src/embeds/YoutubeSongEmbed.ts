@@ -3,7 +3,6 @@ import locales from '../locales/locales';
 import SongEmbed from './SongEmbed';
 import YoutubeSong from '../songs/YoutubeSong';
 /**
- * 
  * @category Embeds
  * @extends SongEmbed
  */

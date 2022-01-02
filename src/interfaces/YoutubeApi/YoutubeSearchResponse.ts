@@ -1,11 +1,11 @@
-import YoutubeVideoBase from './YoutubeVideoBase';
+import YoutubeBaseResponse from './YoutubeBaseResponse';
 
 /**
  * The response for an youtube search request
- * @interface YoutubeSearch
+ * @interface YoutubeSearchResponse
  * @extends YoutubeVideoBase
  */
-interface YoutubeSearch extends YoutubeVideoBase {
+interface YoutubeSearchResponse extends YoutubeBaseResponse {
   /**
    * @type {object}
    */
@@ -33,4 +33,4 @@ interface YoutubeSearch extends YoutubeVideoBase {
   },
 }
 
-export default YoutubeSearch;
+export default YoutubeSearchResponse;
