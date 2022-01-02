@@ -3,7 +3,8 @@ import YoutubePlaylistResponse from './YoutubePlaylistResponse';
 
 /**
  * Represents a youtube playlist
- * @interface
+ * @interface YoutubePlaylist
+ * @extends YoutubePlaylistResponse
  */
 interface YoutubePlaylist extends YoutubePlaylistResponse{
   /**

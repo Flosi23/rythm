@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> serviceErrors</title>
+  <title> YoutubeBaseResponse</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -74,7 +74,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Interface</p>
-                    <h1>serviceErrors</h1>
+                    <h1>YoutubeBaseResponse</h1>
                 </header>
                 
 
@@ -85,7 +85,7 @@
 
 <header>
     
-        <h2>serviceErrors</h2>
+        <h2>YoutubeBaseResponse</h2>
         
     
 </header>
@@ -94,7 +94,7 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>This interface defines messages for all errors caused by the services</p></div>
+            <div class="description"><p>The basic template for an YoutubeApi response</p></div>
         
 
         
@@ -133,9 +133,9 @@
 
     
         <p class="tag-source">
-            <a href="src_locales_interfaces_service.errors.ts.html" class="button">View Source</a>
+            <a href="src_interfaces_YoutubeApi_YoutubeBaseResponse.ts.html" class="button">View Source</a>
             <span>
-                <a href="src_locales_interfaces_service.errors.ts.html">src/locales/interfaces/service.errors.ts</a>, <a href="src_locales_interfaces_service.errors.ts.html#line4">line 4</a>
+                <a href="src_interfaces_YoutubeApi_YoutubeBaseResponse.ts.html">src/interfaces/YoutubeApi/YoutubeBaseResponse.ts</a>, <a href="src_interfaces_YoutubeApi_YoutubeBaseResponse.ts.html#line24">line 24</a>
             </span>
         </p>
     
@@ -173,11 +173,11 @@
 
     </span>
 
-<h4 class="name" id="youtubeDefaultError">
-    <a class="href-link" href="#youtubeDefaultError">#</a>
+<h4 class="name" id="etag">
+    <a class="href-link" href="#etag">#</a>
     
     <span class="code-name">
-        youtubeDefaultError
+        etag
     </span>
     
 </h4>
@@ -186,7 +186,7 @@
 
 
 <div class="description">
-    <p>The default error message for every youtube api error</p>
+    <p>The Etag of this resource.</p>
 </div>
 
 
@@ -226,9 +226,9 @@
 
     
         <p class="tag-source">
-            <a href="src_locales_interfaces_service.errors.ts.html" class="button">View Source</a>
+            <a href="src_interfaces_YoutubeApi_YoutubeBaseResponse.ts.html" class="button">View Source</a>
             <span>
-                <a href="src_locales_interfaces_service.errors.ts.html">src/locales/interfaces/service.errors.ts</a>, <a href="src_locales_interfaces_service.errors.ts.html#line11">line 11</a>
+                <a href="src_interfaces_YoutubeApi_YoutubeBaseResponse.ts.html">src/interfaces/YoutubeApi/YoutubeBaseResponse.ts</a>, <a href="src_interfaces_YoutubeApi_YoutubeBaseResponse.ts.html#line35">line 35</a>
             </span>
         </p>
     
@@ -250,11 +250,11 @@
 
     </span>
 
-<h4 class="name" id="youtubeStatus400">
-    <a class="href-link" href="#youtubeStatus400">#</a>
+<h4 class="name" id="kind">
+    <a class="href-link" href="#kind">#</a>
     
     <span class="code-name">
-        youtubeStatus400
+        kind
     </span>
     
 </h4>
@@ -263,7 +263,7 @@
 
 
 <div class="description">
-    <p>The error message for a response with a status of 400</p>
+    <p>the API resource's type. The value will be youtube#searchListResponse.</p>
 </div>
 
 
@@ -303,9 +303,9 @@
 
     
         <p class="tag-source">
-            <a href="src_locales_interfaces_service.errors.ts.html" class="button">View Source</a>
+            <a href="src_interfaces_YoutubeApi_YoutubeBaseResponse.ts.html" class="button">View Source</a>
             <span>
-                <a href="src_locales_interfaces_service.errors.ts.html">src/locales/interfaces/service.errors.ts</a>, <a href="src_locales_interfaces_service.errors.ts.html#line17">line 17</a>
+                <a href="src_interfaces_YoutubeApi_YoutubeBaseResponse.ts.html">src/interfaces/YoutubeApi/YoutubeBaseResponse.ts</a>, <a href="src_interfaces_YoutubeApi_YoutubeBaseResponse.ts.html#line29">line 29</a>
             </span>
         </p>
     
@@ -322,16 +322,16 @@
     <span class="method-parameter is-pulled-right">
         <label>Type:</label>
         
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
     </span>
 
-<h4 class="name" id="youtubeStatus403">
-    <a class="href-link" href="#youtubeStatus403">#</a>
+<h4 class="name" id="snippet">
+    <a class="href-link" href="#snippet">#</a>
     
     <span class="code-name">
-        youtubeStatus403
+        snippet
     </span>
     
 </h4>
@@ -340,164 +340,259 @@
 
 
 <div class="description">
-    <p>The error message for a response with a status of 403</p>
+    <p>The snippet object contains basic details about a search result,
+such as its title or description.</p>
 </div>
 
 
 
 
 
-<dl class="details">
+    <h5 class="subsection-title">Properties:</h5>
 
     
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="src_locales_interfaces_service.errors.ts.html" class="button">View Source</a>
-            <span>
-                <a href="src_locales_interfaces_service.errors.ts.html">src/locales/interfaces/service.errors.ts</a>, <a href="src_locales_interfaces_service.errors.ts.html#line23">line 23</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-</div>
+<div class="table-container">
+    <table class="props table">
+        <thead>
+        <tr>
             
-                <div class="member">
+            <th>Name</th>
+            
 
-    <span class="method-parameter is-pulled-right">
-        <label>Type:</label>
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>publishedAt</code></td>
+    
+
+    <td class="type">
+    
         
 <span class="param-type">string</span>
 
 
-    </span>
-
-<h4 class="name" id="youtubeStatus404">
-    <a class="href-link" href="#youtubeStatus404">#</a>
     
-    <span class="code-name">
-        youtubeStatus404
-    </span>
-    
-</h4>
-
-
-
-
-<div class="description">
-    <p>The error message for a response with a status of 404</p>
-</div>
-
-
-
-
-
-<dl class="details">
+    </td>
 
     
 
     
 
-    
+    <td class="description last"><p>The creation date and time of the resource
+,
+that the search result identifies.
+,
+The value is specified in ISO 8601 format.</p></td>
+</tr>
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="src_locales_interfaces_service.errors.ts.html" class="button">View Source</a>
-            <span>
-                <a href="src_locales_interfaces_service.errors.ts.html">src/locales/interfaces/service.errors.ts</a>, <a href="src_locales_interfaces_service.errors.ts.html#line29">line 29</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-</div>
+        
             
-                <div class="member">
+<tr class="deep-level-0">
+    
+        <td class="name"><code>channelId</code></td>
+    
 
-    <span class="method-parameter is-pulled-right">
-        <label>Type:</label>
+    <td class="type">
+    
         
 <span class="param-type">string</span>
 
 
-    </span>
-
-<h4 class="name" id="youtubeStatus500">
-    <a class="href-link" href="#youtubeStatus500">#</a>
     
-    <span class="code-name">
-        youtubeStatus500
-    </span>
+    </td>
+
     
-</h4>
+
+    
+
+    <td class="description last"><p>The value that YouTube uses to uniquely identify
+,
+the channel that published the resource that the search result
+,
+identifies.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>title</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
 
 
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The title of the search result.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>description</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
 
 
-<div class="description">
-    <p>The error message for a response with a status of 500</p>
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>A description of the search result.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>thumbnails</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">object</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+  
+      
+<tr class="deep-level-1">
+    
+        <td class="name"><code>default</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="YoutubeThumbnail.html">YoutubeThumbnail</a></span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The default thumbnail image.</p></td>
+</tr>
+
+  
+      
+<tr class="deep-level-1">
+    
+        <td class="name"><code>medium</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="YoutubeThumbnail.html">YoutubeThumbnail</a></span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>A higher resolution version of the thumbnail image</p></td>
+</tr>
+
+  
+      
+<tr class="deep-level-1">
+    
+        <td class="name"><code>high</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="YoutubeThumbnail.html">YoutubeThumbnail</a></span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>A high resolution version of the thumbnail image</p></td>
+</tr>
+
+  
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>channelTitle</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The title of the channel that published
+,
+the resource that the search result identifies.</p></td>
+</tr>
+
+        
+        </tbody>
+    </table>
 </div>
-
-
 
 
 
@@ -534,9 +629,9 @@
 
     
         <p class="tag-source">
-            <a href="src_locales_interfaces_service.errors.ts.html" class="button">View Source</a>
+            <a href="src_interfaces_YoutubeApi_YoutubeBaseResponse.ts.html" class="button">View Source</a>
             <span>
-                <a href="src_locales_interfaces_service.errors.ts.html">src/locales/interfaces/service.errors.ts</a>, <a href="src_locales_interfaces_service.errors.ts.html#line35">line 35</a>
+                <a href="src_interfaces_YoutubeApi_YoutubeBaseResponse.ts.html">src/interfaces/YoutubeApi/YoutubeBaseResponse.ts</a>, <a href="src_interfaces_YoutubeApi_YoutubeBaseResponse.ts.html#line41">line 41</a>
             </span>
         </p>
     

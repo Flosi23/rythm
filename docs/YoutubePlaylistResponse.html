@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> serviceErrors</title>
+  <title> YoutubePlaylistResponse</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -74,7 +74,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Interface</p>
-                    <h1>serviceErrors</h1>
+                    <h1>YoutubePlaylistResponse</h1>
                 </header>
                 
 
@@ -85,7 +85,7 @@
 
 <header>
     
-        <h2>serviceErrors</h2>
+        <h2>YoutubePlaylistResponse</h2>
         
     
 </header>
@@ -94,7 +94,7 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>This interface defines messages for all errors caused by the services</p></div>
+            <div class="description"><p>The YoutubeApiResponse for a playlist</p></div>
         
 
         
@@ -133,9 +133,9 @@
 
     
         <p class="tag-source">
-            <a href="src_locales_interfaces_service.errors.ts.html" class="button">View Source</a>
+            <a href="src_interfaces_YoutubeApi_YoutubePlaylistResponse.ts.html" class="button">View Source</a>
             <span>
-                <a href="src_locales_interfaces_service.errors.ts.html">src/locales/interfaces/service.errors.ts</a>, <a href="src_locales_interfaces_service.errors.ts.html#line4">line 4</a>
+                <a href="src_interfaces_YoutubeApi_YoutubePlaylistResponse.ts.html">src/interfaces/YoutubeApi/YoutubePlaylistResponse.ts</a>, <a href="src_interfaces_YoutubeApi_YoutubePlaylistResponse.ts.html#line4">line 4</a>
             </span>
         </p>
     
@@ -146,6 +146,17 @@
     
     </div>
     
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li>YoutubeVideoBase</li>
+    </ul>
+
+
     
 
     
@@ -168,16 +179,16 @@
     <span class="method-parameter is-pulled-right">
         <label>Type:</label>
         
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
     </span>
 
-<h4 class="name" id="youtubeDefaultError">
-    <a class="href-link" href="#youtubeDefaultError">#</a>
+<h4 class="name" id="contentDetails">
+    <a class="href-link" href="#contentDetails">#</a>
     
     <span class="code-name">
-        youtubeDefaultError
+        contentDetails
     </span>
     
 </h4>
@@ -186,10 +197,62 @@
 
 
 <div class="description">
-    <p>The default error message for every youtube api error</p>
+    <p>The object contains additional information about the video.</p>
 </div>
 
 
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+<div class="table-container">
+    <table class="props table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>itemCount</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The number of vidoes in the playlist</p></td>
+</tr>
+
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -226,9 +289,9 @@
 
     
         <p class="tag-source">
-            <a href="src_locales_interfaces_service.errors.ts.html" class="button">View Source</a>
+            <a href="src_interfaces_YoutubeApi_YoutubePlaylistResponse.ts.html" class="button">View Source</a>
             <span>
-                <a href="src_locales_interfaces_service.errors.ts.html">src/locales/interfaces/service.errors.ts</a>, <a href="src_locales_interfaces_service.errors.ts.html#line11">line 11</a>
+                <a href="src_interfaces_YoutubeApi_YoutubePlaylistResponse.ts.html">src/interfaces/YoutubeApi/YoutubePlaylistResponse.ts</a>, <a href="src_interfaces_YoutubeApi_YoutubePlaylistResponse.ts.html#line16">line 16</a>
             </span>
         </p>
     
@@ -250,11 +313,11 @@
 
     </span>
 
-<h4 class="name" id="youtubeStatus400">
-    <a class="href-link" href="#youtubeStatus400">#</a>
+<h4 class="name" id="id">
+    <a class="href-link" href="#id">#</a>
     
     <span class="code-name">
-        youtubeStatus400
+        id
     </span>
     
 </h4>
@@ -263,7 +326,7 @@
 
 
 <div class="description">
-    <p>The error message for a response with a status of 400</p>
+    <p>The ID that YouTube uses to uniquely identify the playlist.</p>
 </div>
 
 
@@ -303,240 +366,9 @@
 
     
         <p class="tag-source">
-            <a href="src_locales_interfaces_service.errors.ts.html" class="button">View Source</a>
+            <a href="src_interfaces_YoutubeApi_YoutubePlaylistResponse.ts.html" class="button">View Source</a>
             <span>
-                <a href="src_locales_interfaces_service.errors.ts.html">src/locales/interfaces/service.errors.ts</a>, <a href="src_locales_interfaces_service.errors.ts.html#line17">line 17</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-</div>
-            
-                <div class="member">
-
-    <span class="method-parameter is-pulled-right">
-        <label>Type:</label>
-        
-<span class="param-type">string</span>
-
-
-    </span>
-
-<h4 class="name" id="youtubeStatus403">
-    <a class="href-link" href="#youtubeStatus403">#</a>
-    
-    <span class="code-name">
-        youtubeStatus403
-    </span>
-    
-</h4>
-
-
-
-
-<div class="description">
-    <p>The error message for a response with a status of 403</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="src_locales_interfaces_service.errors.ts.html" class="button">View Source</a>
-            <span>
-                <a href="src_locales_interfaces_service.errors.ts.html">src/locales/interfaces/service.errors.ts</a>, <a href="src_locales_interfaces_service.errors.ts.html#line23">line 23</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-</div>
-            
-                <div class="member">
-
-    <span class="method-parameter is-pulled-right">
-        <label>Type:</label>
-        
-<span class="param-type">string</span>
-
-
-    </span>
-
-<h4 class="name" id="youtubeStatus404">
-    <a class="href-link" href="#youtubeStatus404">#</a>
-    
-    <span class="code-name">
-        youtubeStatus404
-    </span>
-    
-</h4>
-
-
-
-
-<div class="description">
-    <p>The error message for a response with a status of 404</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="src_locales_interfaces_service.errors.ts.html" class="button">View Source</a>
-            <span>
-                <a href="src_locales_interfaces_service.errors.ts.html">src/locales/interfaces/service.errors.ts</a>, <a href="src_locales_interfaces_service.errors.ts.html#line29">line 29</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-</div>
-            
-                <div class="member">
-
-    <span class="method-parameter is-pulled-right">
-        <label>Type:</label>
-        
-<span class="param-type">string</span>
-
-
-    </span>
-
-<h4 class="name" id="youtubeStatus500">
-    <a class="href-link" href="#youtubeStatus500">#</a>
-    
-    <span class="code-name">
-        youtubeStatus500
-    </span>
-    
-</h4>
-
-
-
-
-<div class="description">
-    <p>The error message for a response with a status of 500</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="src_locales_interfaces_service.errors.ts.html" class="button">View Source</a>
-            <span>
-                <a href="src_locales_interfaces_service.errors.ts.html">src/locales/interfaces/service.errors.ts</a>, <a href="src_locales_interfaces_service.errors.ts.html#line35">line 35</a>
+                <a href="src_interfaces_YoutubeApi_YoutubePlaylistResponse.ts.html">src/interfaces/YoutubeApi/YoutubePlaylistResponse.ts</a>, <a href="src_interfaces_YoutubeApi_YoutubePlaylistResponse.ts.html#line10">line 10</a>
             </span>
         </p>
     
