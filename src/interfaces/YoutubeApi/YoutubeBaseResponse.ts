@@ -1,10 +1,29 @@
-import YoutubeThumbnail from './YoutubeThumbnail';
+/**
+ * A Youtube Thumbnail
+ @interface YoutubeThumbnail
+ */
+interface YoutubeThumbnail {
+  /**
+   * The url of the thumbnail
+   * @type {string}
+   */
+  url: string,
+  /**
+   * @type {number}
+   */
+  width: number,
+  /**
+   * @type {number}
+   */
+  height: number,
+}
+
 
 /**
  * The basic template for an YoutubeApi response
- * @interface YoutubeVideoBase
+ * @interface YoutubeBaseResponse
  */
-interface YoutubeVideoBase {
+interface YoutubeBaseResponse {
   /**
    * the API resource's type. The value will be youtube#searchListResponse.
    * @type {string}
@@ -71,4 +90,4 @@ interface YoutubeVideoBase {
   }
 }
 
-export default YoutubeVideoBase;
+export default YoutubeBaseResponse;

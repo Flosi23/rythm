@@ -1,6 +1,5 @@
 import Embed from './Embed';
 /**
- * 
  * @category Embeds
  * @extends Embed
  */

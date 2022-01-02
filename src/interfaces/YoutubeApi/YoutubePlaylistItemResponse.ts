@@ -1,11 +1,11 @@
-import YoutubeVideoBase from './YoutubeVideoBase';
+import YoutubeBaseResponse from './YoutubeBaseResponse';
 
 /**
  * The basic template for a Youtube Playlist Item returned by the api
- * @interface YoutubePlaylistItem
+ * @interface YoutubePlaylistItemResponse
  * @extends YoutubeVideoBase
  */
-interface YoutubePlaylistItem extends YoutubeVideoBase {
+interface YoutubePlaylistItemResponse extends YoutubeBaseResponse {
   /**
    * The ID that YouTube uses to uniquely identify the playlist item.
    * @type {string}
@@ -24,4 +24,4 @@ interface YoutubePlaylistItem extends YoutubeVideoBase {
   }
 }
 
-export default YoutubePlaylistItem;
+export default YoutubePlaylistItemResponse;

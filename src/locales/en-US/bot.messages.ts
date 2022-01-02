@@ -10,6 +10,7 @@ const botMessages: botMessages = {
   loopQueueEnabled: 'Queue-Loop enabled',
   loopQueueDisabled: 'Queue-Loop disabled',
   skippedTo: (position: number) => `Skipped to position ${position}`,
+  fetchingPlaylist: 'Fetching Playlist...',
 };
 
 export default botMessages;

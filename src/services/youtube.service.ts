@@ -3,14 +3,18 @@ import Song from '../songs/Song';
 import HttpClient from './http.service';
 import {YoutubeAPIError} from '../errors/youtube.error';
 import {AxiosError} from 'axios';
-// import ytdl from 'ytdl-core-discord';
+
 import {extractPlaylistId} from '../helper/regex';
-import YoutubePlaylistItem from '../interfaces/YoutubePlaylistItem';
-import YoutubeSearch from '../interfaces/YoutubeSearch';
-import YoutubeVideo from '../interfaces/YoutubeVideo';
+import YoutubePlaylistItemResponse from
+  '../interfaces/YoutubeApi/YoutubePlaylistItemResponse';
+import YoutubeSearchResponse from
+  '../interfaces/YoutubeApi/YoutubeSearchResponse';
+import YoutubeVideoResponse from
+  '../interfaces/YoutubeApi/YoutubeVideoResponse';
 import YoutubeSong from '../songs/YoutubeSong';
 import {User} from 'discord.js';
 import {durationToMillis} from '../helper/util';
+import YoutubePlaylist from '../interfaces/YoutubeApi/YoutubePlaylist';
 // import {Readable} from 'stream';
 
 /**
@@ -50,10 +54,10 @@ class YoutubeClient extends HttpClient {
    * Fetches information for vidoes
    * @private
    * @param {string[]} videoIds - The ids of the videos
-   * @return {Promise<YoutubeVideo[] | YoutubeAPIError>}
+   * @return {Promise<YoutubeVideoResponse[] | YoutubeAPIError>}
    */
   private async getVideoInformation(
-      videoIds: string[]) : Promise<YoutubeVideo[] | YoutubeAPIError> {
+      videoIds: string[]) : Promise<YoutubeVideoResponse[] | YoutubeAPIError> {
     const ids = videoIds.toString();
 
     const requestUrl = this.constructUrl(
@@ -63,7 +67,7 @@ class YoutubeClient extends HttpClient {
     try {
       const result = await this.instance.get(requestUrl);
 
-      const videos: YoutubeVideo[] = result.data.items;
+      const videos: YoutubeVideoResponse[] = result.data.items;
 
       return videos;
     } catch (error: any) {
@@ -90,7 +94,7 @@ class YoutubeClient extends HttpClient {
     try {
       const result = await this.instance.get(requestUrl);
 
-      const video: YoutubeSearch = result.data.items[0];
+      const video: YoutubeSearchResponse = result.data.items[0];
 
       const videoInfo = await this.getVideoInformation([video.id.videoId]);
 
@@ -114,21 +118,56 @@ class YoutubeClient extends HttpClient {
   }
 
   /**
+   * Finds and returns a playlist
+   * @public
+   * @param {string} url - The playlist url;
+   * @param {User} requestor - The user who requested the song
+   * @return {Promise<Song[] | YoutubeAPIError>}
+   */
+  public async getPlaylist(url: string, requestor: User)
+    : Promise<YoutubePlaylist | YoutubeAPIError> {
+    const playlistId : string = extractPlaylistId(url);
+
+    const requestUrl = this.constructUrl('playlists',
+        `&part=snippet,id&id=${playlistId}&maxResults=1`,
+    );
+
+    try {
+      const result = await this.instance.get(requestUrl);
+
+      const playlist : YoutubePlaylist = result.data.items[0];
+
+      const songs = await this.getPlaylistItems(playlistId, requestor);
+
+      if (songs instanceof YoutubeAPIError) {
+        return songs;
+      }
+
+      playlist.songs = songs;
+      return playlist;
+    } catch (error: any) {
+      if (error instanceof YoutubeAPIError) {
+        return error;
+      }
+
+      throw error;
+    }
+  }
+
+  /**
    * Finds and returns the songs in a playlist
    * If the playlist has more than 50 entries it will call itself again with
    * the nextPageToken from the previous request.
    * @public
-   * @param {string} url - The playlist url;
+   * @param {string} playlistId - The id of the playlist;
    * @param {User} requestor - The user who requested the song
    * @param {string} pageToken - The pageToken that specifies a specific page
    * in the youtube API result
    * @return {Promise<Song[] | YoutubeAPIError>}
    */
-  public async getPlaylist(
-      url: string, requestor: User, pageToken: string | null = null)
-      : Promise<Song[] | YoutubeAPIError> {
-    const playlistId : string = extractPlaylistId(url);
-
+  private async getPlaylistItems(
+      playlistId: string, requestor: User, pageToken: string | null = null)
+      : Promise<YoutubeSong[] | YoutubeAPIError> {
     const requestUrl = this.constructUrl(
         'playlistItems',
         `playlistId=${playlistId}&maxResults=50&part=snippet,\
@@ -138,10 +177,10 @@ class YoutubeClient extends HttpClient {
     try {
       const data = await (await this.instance.get(requestUrl)).data;
 
-      let songs : Song[] = [];
+      let songs : YoutubeSong[] = [];
 
       const videos = await this.getVideoInformation(
-          data.items.map((ele: YoutubePlaylistItem) => {
+          data.items.map((ele: YoutubePlaylistItemResponse) => {
             return ele.contentDetails.videoId;
           }),
       );
@@ -150,7 +189,7 @@ class YoutubeClient extends HttpClient {
         return videos;
       }
 
-      data.items.forEach((item: YoutubePlaylistItem, i: number) => {
+      data.items.forEach((item: YoutubePlaylistItemResponse, i: number) => {
         const songUrl = this.getVideoUrl(item.contentDetails.videoId);
 
         const duration = durationToMillis(
@@ -161,7 +200,7 @@ class YoutubeClient extends HttpClient {
 
       if (data.nextPageToken != null) {
         // eslint-disable-next-line max-len
-        const nextPageSongs = await this.getPlaylist(url, requestor, data.nextPageToken);
+        const nextPageSongs = await this.getPlaylistItems(playlistId, requestor, data.nextPageToken);
 
         if (nextPageSongs instanceof YoutubeAPIError) {
           return songs;

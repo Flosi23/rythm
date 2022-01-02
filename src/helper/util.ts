@@ -40,7 +40,7 @@ export function mod(x: number, m: number) : number {
 }
 
 /**
- * Converts the youtube duration string to millis
+ * Converts the youtube ISO 8601 duration string to millis
  * @param {string} duration
  * @return {number}
  */

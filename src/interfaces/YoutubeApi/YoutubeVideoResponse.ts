@@ -1,13 +1,13 @@
-import YoutubeVideoBase from './YoutubeVideoBase';
+import YoutubeBaseResponse from './YoutubeBaseResponse';
 
 /**
  * The YoutubeApiResponse describing a youtube video
- * @interface YoutubeVideo
- * @extends YoutubeVideoBase
+ * @interface YoutubeVideoResponse
+ * @extends YoutubeBaseResponse
  */
-interface YoutubeVideo extends YoutubeVideoBase {
+interface YoutubeVideoResponse extends YoutubeBaseResponse {
    /**
-   * The ID that YouTube uses to uniquely identify the playlist item.
+   * The ID that YouTube uses to uniquely identify the video.
    * @type {string}
    */
   id: string,
@@ -24,4 +24,4 @@ interface YoutubeVideo extends YoutubeVideoBase {
   },
 }
 
-export default YoutubeVideo;
+export default YoutubeVideoResponse;
