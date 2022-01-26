@@ -2,7 +2,8 @@
 
 ### Description
 
-A music bot, similar to rythm to queue up and play youtube videos and playlists
+This music bot is meant to replace the old rythm bot that went out of service. 
+It has similar features (even more actually!) and can be used to queue up and play youtube videos and playlists.
 
 #### Commands:
 
