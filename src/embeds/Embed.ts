@@ -1,7 +1,6 @@
 import {MessageEmbed} from 'discord.js';
 
 /**
- * 
  * @category Embeds
  * @extends MessageEmbed
  */
