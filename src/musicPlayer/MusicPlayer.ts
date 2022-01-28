@@ -188,7 +188,8 @@ class MusicPlayer {
    */
   private async playSong(song: Song) {
     try {
-      const audioResource: AudioResource = await song.createAudioResource();
+      // eslint-disable-next-line max-len
+      const audioResource: AudioResource<Song> = await song.createAudioResource();
 
       this.player.play(audioResource);
     } catch (error) {

@@ -1,9 +1,9 @@
 import YoutubeBaseResponse from '../interfaces/YoutubeApi/YoutubeBaseResponse';
 import YoutubeSongEmbed from '../embeds/YoutubeSongEmbed';
 import Song from './Song';
-import {raw as youtubedl} from 'youtube-dl-exec';
-import {AudioResource, createAudioResource, demuxProbe} from '@discordjs/voice';
+import {AudioResource, createAudioResource} from '@discordjs/voice';
 import {User} from 'discord.js';
+import {stream} from 'play-dl'; // Individual functions
 /**
  * A song represents a youtube song to be played
  * @category Song
@@ -56,37 +56,15 @@ class YoutubeSong extends Song {
     // Copied from the @discordjs/voice music-bot example
     // https://github.com/discordjs/voice/tree/main/examples/music-bot
 
-    return new Promise((resolve, reject) => {
-      const process = youtubedl(
-          this.url,
-          {
-            o: '-',
-            q: '',
-            f: 'bestaudio[ext=webm+acodec=opus+asr=48000]/bestaudio',
-            r: '100K',
-          },
-          {stdio: ['ignore', 'pipe', 'ignore']},
-      );
-      if (!process.stdout) {
-        reject(new Error('No stdout'));
-        return;
-      }
-      const stream = process.stdout;
-      const onError = (error: Error) => {
-        if (!process.killed) process.kill();
-        stream.resume();
-        reject(error);
-      };
-      process
-          .once('spawn', () => {
-            demuxProbe(stream)
-                .then((probe) => resolve(createAudioResource(
-                    probe.stream, {metadata: this, inputType: probe.type})))
-                .catch(onError);
-          })
-          .catch(onError);
+    const source = await stream(this.url);
+
+    const resource : AudioResource<Song> = createAudioResource(source.stream, {
+      inputType: source.type,
+      metadata: this,
     });
-  };
+
+    return resource;
+  }
 }
 
 export default YoutubeSong;

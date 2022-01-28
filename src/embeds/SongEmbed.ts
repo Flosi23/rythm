@@ -10,7 +10,9 @@ class SongEmbed extends Embed {
    */
   constructor(title: string) {
     super();
-    this.setAuthor(title);
+    this.setAuthor({
+      name: title,
+    });
   }
 }
 
