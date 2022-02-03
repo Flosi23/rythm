@@ -112,10 +112,10 @@ class Bot {
     } else if (split.length >= 2) {
       if (split[0] === this.prefix) {
         command = split[1];
-        param = split.length >= 3 ? split.slice(2),join(" ") : null;
+        param = split.length >= 3 ? split.slice(2).join(' ') : null;
       } else {
         command = split[0].substring(1);
-        param = split.slice(1).join(" ");
+        param = split.slice(1).join(' ');
       }
     }
 
