@@ -4,6 +4,8 @@
   "description": "A replacement for the rythm music bot",
   "main": "index.js",
   "scripts": {
+    "autofix": "npm run eslint:autofix",
+    "syntax" : "npm run eslint:report && npm run build",
     "eslint:autofix": "eslint --fix -c .eslintrc.json",
     "eslint:report": "eslint --report-unused-disable-directives -c .eslintrc.json",
     "docs": "jsdoc -c jsdoc.json",
