@@ -107,29 +107,15 @@ class Bot {
     let command : string = ' ';
     let param: string | null = null;
 
-    /**
-     * Puts a split string back together
-     * @param {Array<string>} array - Array of string
-     * @return {string} - The full string
-     */
-    function rebuildString(array: string[]) : string {
-      let string = '';
-      array.forEach((ele) => {
-        string += ' ' + ele;
-      });
-
-      return string;
-    }
-
     if (split.length === 1) {
       command = msg.content.substring(1);
     } else if (split.length >= 2) {
       if (split[0] === this.prefix) {
         command = split[1];
-        param = split.length >= 3 ? rebuildString(split.slice(2)) : null;
+        param = split.length >= 3 ? split.slice(2),join(" ") : null;
       } else {
         command = split[0].substring(1);
-        param = rebuildString(split.slice(1));
+        param = split.slice(1).join(" ");
       }
     }
 
