@@ -1,4 +1,5 @@
 import Song from '../songs/Song';
+import SpinLock from './SpinLock';
 
 /**
  * A queue represents all songs to be played by a guild
@@ -33,6 +34,13 @@ class Queue {
   public nowPlaying: Song | null;
 
   /**
+   * A SpinLock to avoid race conditions
+   * @type {SpinLock}
+   * @private
+   */
+  private spinLock: SpinLock;
+
+  /**
    * @constructor
    * @param {Array<Song>} songs - An array of songs, can also be empty
    */
@@ -41,6 +49,7 @@ class Queue {
     this.nowPlaying = null;
     this.loop = false;
     this.loopQueue = false;
+    this.spinLock = new SpinLock();
   };
 
   /**
@@ -49,7 +58,11 @@ class Queue {
    * @param {number} index - At which index the songs should be added
    */
   public addToQueue(songs: Song[], index: number) {
+    this.spinLock.lock();
+
     this.songs.splice((index <= 0) ? 0 : index, 0, ...songs);
+
+    this.spinLock.unlock();
   }
 
   /**
@@ -57,7 +70,11 @@ class Queue {
    * @param {number} index
    */
   public skipTo(index: number) {
+    this.spinLock.lock();
+
     this.songs = this.songs.slice(index);
+
+    this.spinLock.unlock();
   }
 
   /**
@@ -70,10 +87,14 @@ class Queue {
       return this.nowPlaying;
     }
 
+    this.spinLock.lock();
+
     const next = this.songs.shift();
 
     if (!next) {
       this.nowPlaying = null;
+
+      this.spinLock.unlock();
 
       return undefined;
     }
@@ -81,6 +102,8 @@ class Queue {
     if (this.loopQueue) {
       this.songs.push(next);
     }
+
+    this.spinLock.unlock();
 
     this.nowPlaying = next;
 
@@ -94,9 +117,15 @@ class Queue {
    */
   public getTotalPlayTime() : number {
     let duration = 0;
+
+    this.spinLock.lock();
+
     this.songs.forEach((song) => {
       duration += song.duration;
     });
+
+    this.spinLock.unlock();
+
     return duration;
   }
 }
