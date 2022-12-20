@@ -30,9 +30,10 @@ class QueueEmbed extends Paginator {
     const mainPage = this.getBaseEmbed();
 
     if (queue.nowPlaying !== null) {
-      mainPage.addField(
-          `__${locales.botEmbeds.nowPlaying}__:`,
-          this.createSongLine(queue.nowPlaying));
+      mainPage.addFields({
+        name: `__${locales.botEmbeds.nowPlaying}__:`,
+        value: this.createSongLine(queue.nowPlaying),
+      });
     }
 
     if (queue.songs.length === 0) {
@@ -81,10 +82,10 @@ class QueueEmbed extends Paginator {
       counter++;
     }
 
-    embed.addField(
-        `__${locales.botEmbeds.upNext}__:`,
-        songsString,
-    );
+    embed.addFields({
+      name: `__${locales.botEmbeds.upNext}__:`,
+      value: songsString,
+    });
 
     const queueLength = `${locales.botEmbeds.songsInQueue(queue.songs.length)}`;
     const totalLength =

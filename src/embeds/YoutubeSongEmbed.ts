@@ -22,9 +22,10 @@ class YoutubeSongEmbed extends SongEmbed {
     this.setTitle(song.metadata.snippet.title);
     this.setColor(colors.red[600]);
     this.setURL(song.url);
-    this.addField(
-        locales.botEmbeds.artist,
-        song.metadata.snippet.channelTitle);
+    this.addFields({
+      name: locales.botEmbeds.artist,
+      value: song.metadata.snippet.channelTitle,
+    });
     this.setThumbnail(song.metadata.snippet.thumbnails.default.url);
   }
 }

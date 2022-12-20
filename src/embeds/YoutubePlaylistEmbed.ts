@@ -17,9 +17,10 @@ class YoutubePlaylistEmbed extends SongEmbed {
 
     this.setTitle(playlist.snippet.title);
     this.setColor(colors.red[600]);
-    this.addField(
-        locales.botEmbeds.artist,
-        playlist.snippet.channelTitle);
+    this.addFields({
+      name: locales.botEmbeds.artist,
+      value: playlist.snippet.channelTitle},
+    );
     this.setThumbnail(playlist.snippet.thumbnails.default.url);
   }
 }

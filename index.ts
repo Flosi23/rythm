@@ -15,3 +15,4 @@ import Bot from './src/Bot';
 import botConfig from './config/bot.config';
 
 new Bot(botConfig.TOKEN).listen();
+console.log('--- Bot started ---');

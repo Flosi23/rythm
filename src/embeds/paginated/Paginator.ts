@@ -1,6 +1,10 @@
 import Embed from '../Embed';
 import locales from '../../locales/locales';
-import {MessageComponentInteraction, TextChannel} from 'discord.js';
+import {
+  ButtonStyle,
+  ComponentType,
+  MessageComponentInteraction,
+  TextChannel} from 'discord.js';
 import {mod} from '../../helper/util';
 
 /**
@@ -37,7 +41,9 @@ abstract class Paginator {
    */
   protected setFooter() : void {
     this.pages.forEach((page, i) => {
-      page.setFooter(`${locales.botEmbeds.page} ${i+1}/${this.pages.length}`);
+      page.setFooter({
+        text: `${locales.botEmbeds.page} ${i+1}/${this.pages.length}`,
+      });
     });
   }
 
@@ -62,7 +68,7 @@ abstract class Paginator {
       embeds: [this.pages[this.currentPage]],
       components: [
         {
-          type: 'ACTION_ROW',
+          type: ComponentType.ActionRow,
           components: [
             /* {
               type: 'BUTTON',
@@ -72,15 +78,15 @@ abstract class Paginator {
               customId: '⏮️',
             },*/
             {
-              type: 'BUTTON',
-              style: 'PRIMARY',
+              type: ComponentType.Button,
+              style: ButtonStyle.Primary,
               label: `${locales.botEmbeds.previous}`,
               emoji: '◀️',
               customId: '◀️',
             },
             {
-              type: 'BUTTON',
-              style: 'PRIMARY',
+              type: ComponentType.Button,
+              style: ButtonStyle.Primary,
               label: `${locales.botEmbeds.next}`,
               emoji: '▶️',
               customId: '▶️',
