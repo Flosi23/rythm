@@ -1,7 +1,6 @@
 import CustomError from './error';
 import locales from '../locales/locales';
 /**
- * 
  * @category Errors
  * @extends CustomError
  */
