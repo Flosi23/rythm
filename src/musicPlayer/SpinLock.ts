@@ -5,7 +5,7 @@
 class SpinLock {
   /**
    * The state of the SpinLock (either locked or unlocked)
-   * @type{boolean}
+   * @type {boolean}
    * @private
    */
   private locked: boolean;
