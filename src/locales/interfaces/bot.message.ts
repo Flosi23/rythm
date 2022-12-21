@@ -69,6 +69,10 @@ interface botMessages {
    * @type {string}
    */
   fetchingPlaylist: string,
+  /**
+   * @type {string}
+   */
+  sendingQueue: string,
 }
 
 export default botMessages;

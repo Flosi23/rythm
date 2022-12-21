@@ -4,7 +4,8 @@ import {
   ButtonStyle,
   ComponentType,
   MessageComponentInteraction,
-  TextChannel} from 'discord.js';
+  TextBasedChannel,
+} from 'discord.js';
 import {mod} from '../../helper/util';
 
 /**
@@ -57,9 +58,9 @@ abstract class Paginator {
   }
 
   /**
-   * @param {TextChannel} textChannel - The text channel
+   * @param {TextBasedChannel} textChannel - The text channel
    */
-  public async send(textChannel: TextChannel) {
+  public async send(textChannel: TextBasedChannel) {
     this.setFooter();
 
     // This code is from https://github.com/porridgewithraisins/jam-bot/blob/main/src/Messaging.ts

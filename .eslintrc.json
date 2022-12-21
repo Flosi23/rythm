@@ -16,6 +16,14 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "max-len": [
+            "error",
+            {
+                "code": 90,
+                "tabWidth": 2,
+                "ignoreUrls": true
+            }
+        ],
         "linebreak-style":"off"
     }
 }

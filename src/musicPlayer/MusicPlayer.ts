@@ -78,7 +78,6 @@ class MusicPlayer {
     this.readyLock = false;
 
     this.player.on('error', (error) => {
-      console.log('Music Player Error', error);
       // TODO send Error playing audio
     });
 
@@ -188,7 +187,6 @@ class MusicPlayer {
    */
   private async playSong(song: Song) {
     try {
-      // eslint-disable-next-line max-len
       const audioResource: AudioResource<Song> = await song.createAudioResource();
 
       this.player.play(audioResource);
@@ -222,13 +220,13 @@ class MusicPlayer {
     index = index - 1;
 
     if (index > this.queue.songs.length - 1 || index <= 0) {
-      return `:x: ${locales.userErrors.positionNotExistant}`;
+      return locales.userErrors.positionNotExistant;
     }
 
     this.queue.skipTo(index);
     this.playNextSong();
 
-    return `:white_check_mark: ${locales.botMessages.skippedTo(index + 1)}`;
+    return locales.botMessages.skippedTo(index + 1);
   }
 
   /**
