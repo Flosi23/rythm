@@ -61,8 +61,20 @@ interface userErrors {
   /**
    * Message to send if the user did not give a number as parameter
    * for a command that needs a number as parameter
+   * @type {string}
    */
   paramIsNotANumber: string,
+  /**
+   * The message to send if the user provided an invalid url
+   * @type {string}
+   */
+  invalidURL: string,
+  /**
+   * The message to send if the user wants to use an command that cannot
+   * be used at that time
+   * @type {string}
+   */
+  wrongUsageTime: string,
 }
 
 export default userErrors;

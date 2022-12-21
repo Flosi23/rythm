@@ -1,6 +1,11 @@
 import Embed from '../Embed';
 import locales from '../../locales/locales';
-import {MessageComponentInteraction, TextChannel} from 'discord.js';
+import {
+  ButtonStyle,
+  ComponentType,
+  MessageComponentInteraction,
+  TextBasedChannel,
+} from 'discord.js';
 import {mod} from '../../helper/util';
 
 /**
@@ -37,7 +42,9 @@ abstract class Paginator {
    */
   protected setFooter() : void {
     this.pages.forEach((page, i) => {
-      page.setFooter(`${locales.botEmbeds.page} ${i+1}/${this.pages.length}`);
+      page.setFooter({
+        text: `${locales.botEmbeds.page} ${i+1}/${this.pages.length}`,
+      });
     });
   }
 
@@ -51,9 +58,9 @@ abstract class Paginator {
   }
 
   /**
-   * @param {TextChannel} textChannel - The text channel
+   * @param {TextBasedChannel} textChannel - The text channel
    */
-  public async send(textChannel: TextChannel) {
+  public async send(textChannel: TextBasedChannel) {
     this.setFooter();
 
     // This code is from https://github.com/porridgewithraisins/jam-bot/blob/main/src/Messaging.ts
@@ -62,7 +69,7 @@ abstract class Paginator {
       embeds: [this.pages[this.currentPage]],
       components: [
         {
-          type: 'ACTION_ROW',
+          type: ComponentType.ActionRow,
           components: [
             /* {
               type: 'BUTTON',
@@ -72,15 +79,15 @@ abstract class Paginator {
               customId: '⏮️',
             },*/
             {
-              type: 'BUTTON',
-              style: 'PRIMARY',
+              type: ComponentType.Button,
+              style: ButtonStyle.Primary,
               label: `${locales.botEmbeds.previous}`,
               emoji: '◀️',
               customId: '◀️',
             },
             {
-              type: 'BUTTON',
-              style: 'PRIMARY',
+              type: ComponentType.Button,
+              style: ButtonStyle.Primary,
               label: `${locales.botEmbeds.next}`,
               emoji: '▶️',
               customId: '▶️',

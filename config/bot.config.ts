@@ -1,18 +1,20 @@
-import {ClientOptions, Intents} from 'discord.js';
+import {ClientOptions, GatewayIntentBits} from 'discord.js';
 import {checkStringIsNotUndefined} from './convert';
 
 interface botConfig {
   TOKEN: string,
+  CLIENT_ID: string,
   CLIENT_OPTIONS: ClientOptions,
 }
 
 const botConfig: botConfig = {
   TOKEN: checkStringIsNotUndefined(process.env.BOT_TOKEN),
+  CLIENT_ID: checkStringIsNotUndefined(process.env.BOT_CLIENT_ID),
   CLIENT_OPTIONS: {
     intents: [
-      Intents.FLAGS.GUILDS,
-      Intents.FLAGS.GUILD_MESSAGES,
-      Intents.FLAGS.GUILD_VOICE_STATES,
+      GatewayIntentBits.Guilds,
+      GatewayIntentBits.GuildMessages,
+      GatewayIntentBits.GuildVoiceStates,
     ],
   },
 };

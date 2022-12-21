@@ -1,9 +1,10 @@
 import {
-  TextChannel,
-  Message,
   VoiceChannel,
   StageChannel,
-  Guild} from 'discord.js';
+  Guild,
+  ChatInputCommandInteraction,
+  TextBasedChannel,
+} from 'discord.js';
 import {YoutubeAPIError} from './errors/youtube.error';
 import locales from './locales/locales';
 import MusicPlayer from './musicPlayer/MusicPlayer';
@@ -13,8 +14,6 @@ import {isUrl, isYoutubePlaylistUrl} from './helper/regex';
 import Embed from './embeds/Embed';
 import QueueEmbed from './embeds/paginated/QueueEmbed';
 import Paginator from './embeds/paginated/Paginator';
-import {stringToNumber} from './helper/convert';
-import ConversionError from './errors/conversion.error';
 import YoutubePlaylistEmbed from './embeds/YoutubePlaylistEmbed';
 
 interface deleteSelf {
@@ -35,10 +34,10 @@ class BotGuild {
 
   /**
    * Text channel to write messages in
-   * @type {TextChannel}
+   * @type {TextBasedChannel}
    * @private
    */
-  private textChannel: TextChannel;
+  private textChannel: TextBasedChannel;
 
   /**
    * The client for the youtube api
@@ -46,7 +45,6 @@ class BotGuild {
    * @private
    */
   private youtubeClient: YoutubeClient;
-
 
   /**
    * The music player
@@ -60,19 +58,19 @@ class BotGuild {
    * @type {deleteSelf}
    * @private
    */
-  private deleteSelf: deleteSelf
+  private deleteSelf: deleteSelf;
 
 
   /**
    * @constructor
    * @param {Guild} guild - The Id of the guild
-   * @param {TextChannel} textChannel - The text channel of the msg
+   * @param {TextBasedChannel} textChannel - The text channel of the msg
    * @param {deleteSelf} deleteSelf -
    * Callback to remove this guild from the guilds collection
    */
   constructor(
       guild: Guild,
-      textChannel: TextChannel,
+      textChannel: TextBasedChannel,
       deleteSelf: deleteSelf) {
     this.guild = guild;
     this.textChannel = textChannel;
@@ -81,11 +79,31 @@ class BotGuild {
   }
 
   /**
-   * Makes the text bold and sends it
+   * Applies styles to text (e.g makes it bold)
+   * @param {string} text - The text to apply to styles to
+   * @return {string} - The modified string
+   */
+  private applyStyles(text: string) : string {
+    return `**${text}**`;
+  }
+
+  /**
+   * Applies styles to the text and replies to the given interaction
+   * @param {string} text - text to send
+   * @param {ChatInputCommandInteraction} interaction - interaction to reply to
+   * @return {void}
+   */
+  private reply(text: string, interaction: ChatInputCommandInteraction) : void {
+    interaction.reply(this.applyStyles(text));
+    return;
+  }
+
+  /**
+   * Applies styles to the text and sends it
    * @param {string} text - The text to be sent
    */
   public sendMessage(text: string) : void {
-    this.textChannel.send(`**${text}**`);
+    this.textChannel.send(this.applyStyles(text));
   }
 
   /**
@@ -105,182 +123,174 @@ class BotGuild {
   }
 
   /**
-   * Handle an incoming command
-   * @param {string} command - The command
-   * @param {string} param - Parameter for the command
-   * @param {Message} msg - The msg object
+   * Appends a song or playlist to the queue and plays it
+   * @param {string} param - The parameter for the command
+   * @param {ChatInputCommandInteraction} interaction
+   * - The interaction that triggered this command
    * @return {void}
    */
-  public handleCommand(
-      command: string,
-      param: string | null,
-      msg: Message,
-  ) : void {
-    if (command === 'p' || command === 'play') {
-      if (msg.member === null || msg.guild === null) {
-        return this.sendMessage(locales.botErrors.errorWhileExecutingCommand);
-      }
-
-      if (param === null) {
-        return this.sendMessage(
-            locales.userErrors.commandNeedsParameter(command));
-      }
-
-      if (msg.member.voice.channel === null) {
-        return this.sendMessage(locales.userErrors.notInVoiceChannel);
-      }
-
-      this.play(param, msg.member.voice.channel, msg);
-      return;
-    }
-
-    if (command === 'fp' || command === 'forceplay') {
-      if (msg.member === null || msg.guild === null) {
-        return this.sendMessage(locales.botErrors.errorWhileExecutingCommand);
-      }
-
-      if (param === null) {
-        return this.sendMessage(
-            locales.userErrors.commandNeedsParameter(command));
-      }
-
-      if (msg.member.voice.channel === null) {
-        return this.sendMessage(locales.userErrors.notInVoiceChannel);
-      }
-
-      this.forcePlay(param, msg.member.voice.channel, msg);
-      return;
-    }
-
-    if (command === 'loop') {
-      if (this.player === null) return;
-
-      this.player.queue.loop = !this.player.queue.loop;
-
-      if (this.player.queue.loop) {
-        this.sendMessage(
-            `:arrows_counterclockwise: ${locales.botMessages.loopEnabled}`);
-      } else {
-        this.sendMessage(`:x: ${locales.botMessages.loopDisabled}`);
-      }
-
-      return;
-    }
-
-    if (command === 'loopq' || command === 'loopqueue') {
-      if (this.player === null) return;
-
-      this.player.queue.loopQueue = !this.player.queue.loopQueue;
-
-      if (this.player.queue.loopQueue) {
-        this.sendMessage(
-            // eslint-disable-next-line max-len
-            `:arrows_counterclockwise: ${locales.botMessages.loopQueueEnabled}`);
-      } else {
-        this.sendMessage(`:x: ${locales.botMessages.loopQueueDisabled}`);
-      }
-
-      return;
-    }
-
-    if (command === 'quit' || command === 'leave') {
-      if (this.player === null) return;
-
-      this.player.quit();
-      this.deleteSelf();
-      this.sendMessage(locales.botMessages.botLeft);
-      return;
-    }
-
-    if (command === 'skip' || command === 'fs') {
-      if (this.player === null) return;
-
-      this.player.playNextSong();
-      this.sendMessage(locales.botMessages.songSkipped);
-      return;
-    }
-
-    if (command === 'skipto') {
-      if (this.player === null) return;
-
-      if (param === null) {
-        return this.sendMessage(
-            locales.userErrors.commandNeedsParameter(command));
-      }
-
-      const convert = stringToNumber(param);
-
-      if (convert instanceof ConversionError) {
-        this.sendMessage(convert.message);
-        return;
-      }
-
-      const message = this.player.skipTo(convert);
-      this.sendMessage(message);
-      return;
-    }
-
-    if (command === 'q' || command === 'queue') {
-      if (this.player === null) {
-        return;
-      }
-
-      this.sendPaginator(new QueueEmbed(this.player.queue));
-      return;
-    }
-
-    this.sendMessage(locales.userErrors.isNotACommand(command));
-  }
-
-  /**
-   * Adds a new song to the queue
-   * @param {string} param - Command parameter
-   * @param {VoiceChannel | StageChannel} voiceChannel - Original message
-   * @param {Message} msg - The original message
-   * @return {Promise<void>}
-   */
-  private async forcePlay(
+  public async play(
       param: string,
-      voiceChannel: VoiceChannel | StageChannel,
-      msg: Message,
-  ) : Promise<void> {
-    const songs: Song[] = await this.getSongs(param, voiceChannel, msg);
-
-    if (this.player !== null) {
-      this.player.addToQueue(songs, 0);
+      interaction: ChatInputCommandInteraction)
+  : Promise<void> {
+    if (interaction.member === null) {
+      return this.reply(locales.botErrors.errorWhileExecutingCommand, interaction);
     }
-  };
 
-  /**
-   * Adds a new song to the queue
-   * @param {string} param - Command parameter
-   * @param {VoiceChannel | StageChannel} voiceChannel - Original message
-   * @param {Message} msg - The original message
-   * @return {Promise<void>}
-   */
-  private async play(
-      param: string,
-      voiceChannel: VoiceChannel | StageChannel,
-      msg: Message,
-  ) : Promise<void> {
-    const songs: Song[] = await this.getSongs(param, voiceChannel, msg);
+    const member = this.guild.members.cache.get(interaction.member.user.id);
+
+    if (member?.voice.channel == null) {
+      return this.reply(locales.userErrors.notInVoiceChannel, interaction);
+    }
+
+    const songs: Song[] = await this.getSongs(param, member.voice.channel, interaction);
 
     if (this.player !== null) {
       this.player.addToQueue(songs);
     }
-  };
+  }
 
+  /**
+   * Appends a new song to the queue right after
+   * the currently playing song (will play next)
+   * @param {string} param - The parameter for the command
+   * @param {ChatInputCommandInteraction} interaction
+   * - The interaction that triggered this command
+   * @return {void}
+   */
+  public async forceplay(
+      param: string,
+      interaction: ChatInputCommandInteraction)
+  : Promise<void> {
+    if (interaction.member === null) {
+      return this.reply(locales.botErrors.errorWhileExecutingCommand, interaction);
+    }
+
+    const member = this.guild.members.cache.get(interaction.member.user.id);
+
+    if (member?.voice.channel == null) {
+      return this.reply(locales.userErrors.notInVoiceChannel, interaction);
+    }
+
+    const songs: Song[] = await this.getSongs(param, member.voice.channel, interaction);
+
+    if (this.player !== null) {
+      this.player.addToQueue(songs, 0);
+    }
+  }
+
+  /**
+   * Will loop the currently playing song
+   * @param {ChatInputCommandInteraction} interaction
+   * - The interaction that triggered the command
+   * @return {void}
+   */
+  public loop(interaction: ChatInputCommandInteraction) : void {
+    if (this.player === null) {
+      return this.reply(locales.userErrors.wrongUsageTime, interaction);
+    }
+
+    this.player.queue.loop = !this.player.queue.loop;
+
+    if (this.player.queue.loop) {
+      return this.reply(locales.botMessages.loopEnabled, interaction);
+    }
+
+    return this.reply(locales.botMessages.loopDisabled, interaction);
+  }
+
+  /**
+   * Will loop the queue
+   * @param {ChatInputCommandInteraction} interaction
+   * - The interaction that triggered the command
+   * @return {void}
+   */
+  public loopQueue(interaction: ChatInputCommandInteraction) : void {
+    if (this.player === null) {
+      return this.reply(locales.userErrors.wrongUsageTime, interaction);
+    }
+
+    this.player.queue.loopQueue = !this.player.queue.loopQueue;
+
+    if (this.player.queue.loopQueue) {
+      return this.reply(locales.botMessages.loopQueueEnabled, interaction);
+    }
+
+    return this.reply(locales.botMessages.loopQueueDisabled, interaction);
+  }
+
+  /**
+   * Skips the currently playing song
+   * @param {ChatInputCommandInteraction} interaction
+   * - The interaction that triggered the command
+   * @return {void}
+   */
+  public skip(interaction: ChatInputCommandInteraction) : void {
+    if (this.player === null) {
+      return this.reply(locales.userErrors.wrongUsageTime, interaction);
+    }
+
+    this.player.playNextSong();
+    this.reply(locales.botMessages.songSkipped, interaction);
+  }
+
+  /**
+   * Skips to the given position in the queue
+   * @param {number} position - The position to skip to
+   * @param {ChatInputCommandInteraction} interaction
+   * - the interaction that triggered the command
+   * @return {void}
+   */
+  public skipTo(position: number, interaction: ChatInputCommandInteraction) : void {
+    if (this.player === null) {
+      return this.reply(locales.userErrors.wrongUsageTime, interaction);
+    }
+
+    const message = this.player.skipTo(position);
+    this.reply(message, interaction);
+  }
+
+  /**
+   * Sends a paginated embed
+   * @param {ChatInputCommandInteraction} interaction
+   * - The interaction that triggered this command
+   * @return {void}
+   */
+  public queue(interaction: ChatInputCommandInteraction) : void {
+    if (this.player === null) {
+      return this.reply(locales.userErrors.wrongUsageTime, interaction);
+    }
+
+    this.reply(locales.botMessages.sendingQueue, interaction);
+    this.sendPaginator(new QueueEmbed(this.player.queue));
+  }
+
+  /**
+   * Bot will stop playback and quit the voice channell
+   * @param {ChatInputCommandInteraction} interaction
+   * - The interaction that triggered this command
+   * @return {void}
+   */
+  public quit(interaction: ChatInputCommandInteraction) : void {
+    if (this.player === null) {
+      return this.reply(locales.userErrors.wrongUsageTime, interaction);
+    }
+
+    this.player.quit();
+    this.deleteSelf();
+    this.reply(locales.botMessages.botLeft, interaction);
+  }
 
   /**
    * Returns a list of songs
    * @param {string} param
    * @param {Voicechannel | StageChannel} voiceChannel
-   * @param {Message} msg
+   * @param {ChatInputCommandInteraction} interaction
    */
   private async getSongs(
       param: string,
       voiceChannel: VoiceChannel | StageChannel,
-      msg: Message,
+      interaction: ChatInputCommandInteraction,
   ) : Promise<Song[]> {
     if (this.player === null) {
       this.player = new MusicPlayer(
@@ -289,17 +299,14 @@ class BotGuild {
           this);
     }
 
-    // regex matches every URL
-    // eslint-disable-next-line max-len
-
     let songs : Song[] = [];
 
     if (isUrl(param)) {
-      songs = await this.handleUrl(param, msg);
+      songs = await this.handleUrl(param, interaction);
     } else {
-      this.sendMessage(locales.botMessages.searchingYoutubeVideo(param));
+      this.reply(locales.botMessages.searchingYoutubeVideo(param), interaction);
 
-      const song = await this.youtubeClient.getVideo(param, msg.author);
+      const song = await this.youtubeClient.getVideo(param, interaction.user);
 
       if (song instanceof YoutubeAPIError) {
         this.sendMessage(song.message);
@@ -317,14 +324,18 @@ class BotGuild {
   /**
    *
    * @param {string} url
-   * @param {Message} msg - The original message
+   * @param {ChatInputCommandInteraction} interaction
+   * - The interaction that triggered the command
    * @return {Song[]} - The songs that should be added to the queue
    */
-  private async handleUrl(url: string, msg: Message) : Promise<Song[]> {
+  private async handleUrl(
+      url: string,
+      interaction: ChatInputCommandInteraction)
+  : Promise<Song[]> {
     if (isYoutubePlaylistUrl(url)) {
-      this.sendMessage(locales.botMessages.fetchingPlaylist);
+      this.reply(locales.botMessages.fetchingPlaylist, interaction);
 
-      const playlist = await this.youtubeClient.getPlaylist(url, msg.author);
+      const playlist = await this.youtubeClient.getPlaylist(url, interaction.user);
 
       if (playlist instanceof YoutubeAPIError) {
         this.sendMessage(playlist.message);
@@ -335,6 +346,8 @@ class BotGuild {
           new YoutubePlaylistEmbed(locales.botEmbeds.addedToQueue, playlist));
 
       return playlist.songs;
+    } else {
+      this.reply(locales.userErrors.invalidURL, interaction);
     }
 
     return [];
